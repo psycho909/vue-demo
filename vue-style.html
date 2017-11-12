@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Watch</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+	<style>
+		.box {
+			width: 200px;
+			height: 200px;
+			display: inline-block;
+		}
+
+		.shape {
+			width: 150px;
+			height: 150px;
+			margin: 10px;
+			display: inline-block;
+		}
+
+		.circle {
+			background-color: orange;
+			border-radius: 50%;
+		}
+
+		.square {
+			background-color: #c89;
+		}
+
+		.triangle {
+			width: 0;
+			height: 0;
+		}
+
+		.triangle.up {
+			border-left: 100px solid transparent;
+			border-right: 100px solid transparent;
+			border-bottom: 150px solid orange;
+		}
+
+		.triangle.right {
+			border-top: 100px solid transparent;
+			border-bottom: 100px solid transparent;
+			border-left: 150px solid green;
+		}
+
+		.triangle.down {
+			border-left: 100px solid transparent;
+			border-right: 100px solid transparent;
+			border-top: 150px solid #49A5C4;
+		}
+
+		.triangle.left {
+			border-top: 100px solid transparent;
+			border-bottom: 100px solid transparent;
+			border-right: 150px solid #A549C4;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div class="box" :style="{backgroundColor:color}"></div>
+		<div class="box" :style="[styles,moreStyles]"></div>
+		<div class="box" :class="[pink]" :style="[pinks]"></div>
+		<div v-for="shape in shapes" :class="[shape.shape,shape.direction?shape.direction:'']" class="shape"></div>
+	</div>
+	<script>
+
+		var app = new Vue({
+			el: "#app",
+			data() {
+				return {
+					color: 'blue',
+					pink:'pink',
+					pinks:{
+						'backgroundColor':'pink'
+					},
+					moreStyles: {
+						'border-radius': '5px'
+					},
+					shapes: [
+						{
+							shape: 'circle'
+						},{
+							shape: 'square'
+						},{
+							shape:'triangle',
+							direction:'up'
+						},{
+							shape:'triangle',
+							direction:'right'
+						},{
+							shape:'triangle',
+							direction:'down'
+						},{
+							shape:'triangle',
+							direction:'left'
+						}
+					]
+				}
+			},
+			computed: {
+				styles: function () {
+					var height = 200
+
+					return {
+						'background-color': 'red',
+						'width': (height / 2) + 'px',
+						'height': height + 'px'
+					}
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>

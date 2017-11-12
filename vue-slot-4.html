@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>slot</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+	<style>
+		.red{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<gender name="John" sex="red" :itemss="colors">
+		<template scope="itemss" slot="slot-item">
+			<div>{{itemss.props.name}}</div>
+		</template>
+	</gender>
+</div>
+<template id="gender">
+	<div class="items-box">
+		<div class="box" :class="sex">{{name}}</div>
+		<div class="item-list">
+			<slot name="slot-item" :props="value" v-for="value in itemss"></slot>
+		</div>
+	</div>
+</template>
+<script>
+Vue.component('gender',{
+	template:'#gender',
+	props:['name','sex','itemss']
+})
+var app=new Vue({
+	el:"#app",
+	data(){
+		return {
+			colors:[
+				{name:'Red',sides:1},
+				{name:'Green',sides:2},
+				{name:'Gold',sides:4},
+			],games:[
+				{name:'PS4',sides:3},
+				{name:'Xbox',sides:6},
+				{name:'Will',sides:1},
+			]
+		}
+	}
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div id="header">
+            <div class="navbar">
+                搞事情
+            </div>
+        </div>
+        <div id="main">
+            <div class="wrap">
+                <div class="">
+                    <h2>计划列表</h2>
+                </div>
+            </div>
+            <div class="content">
+                <p class="title">未完成</p>
+                <div class="todo">
+                    <form action="" @submit.prevent="merge">
+                        <input id="todoInput" v-model="current.title" type="text" placeholder="你想搞事吗。。。" autocomplete="off">
+                        <button type="submit" class="inputBtn" title="添加">添加</button>
+                    </form>
+                    <div class="wrap">
+                        <div class="plan-list" v-for="(todo,i) in todoList" v-if="!todo.completed">
+                            <div class="item">
+                                <button class="float-left" title="完成" @click="toggleComplete(todo.id)">完成</button>
+                                {{todo.title}}
+                                <button class="float-right" title="删除" @click="remove(todo.id)">删除</button>
+                                <button class="float-right" title="修改" @click="setCurrent(todo)">修改</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="title" @click="resetCurrent">已完成</p>
+                <div class="done">
+                    <div class="wrap">
+                        <div class="plan-list" v-for="todo in todoList" v-if="todo.completed">
+                            <div class="item">
+                                <button class="float-left" title="未完成">
+                                    未完成
+                                </button>
+                                {{todo.title}}
+                                <button class="float-right" title="删除">
+                                    删除
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        new Vue({
+            el:'#app',
+            data:{
+                todoList:[],
+                current:{}
+            },
+            methods:{
+                nextId:function(){
+                    return this.todoList.length+1
+                },
+                find_index:function(id){
+                    return this.todoList.findIndex(function(item){
+                        return item.id == id;
+                    })
+                },
+                copy:function(obj){
+                    var copyVal=Object.assign({},obj)
+                    return copyVal
+                },
+                merge:function(){
+                    var isUpdate,id;
+                    isUpdate=id=this.current.id;
+                    if(isUpdate){
+                        var index=this.find_index(id)
+                        Vue.set(this.todoList,index,this.copy(this.current))
+                    }else{
+                        var title=this.current.title;
+                        if(!title && title !== 0) return;
+                        var todo=this.copy(this.current);
+                        todo.id=this.nextId();
+                        this.todoList.push(todo);
+                    }
+                    this.resetCurrent();
+                },
+                setCurrent:function(todo){
+                    this.current=this.copy(todo)
+                    console.log(213)
+                },
+                resetCurrent:function(){
+                    this.setCurrent({})
+                },
+                remove:function(id){
+                    console.log('remove')
+                    var index=this.find_index(id)
+                    this.todoList.splice(index,1)
+                    
+                },
+                toggleComplete:function(id){
+                    var index=this.find_index(id)
+                    Vue.set(this.todoList[index],'completed',!this.todoList[index].completed)
+                    console.log(this.todoList)
+                },
+                add:function(){
+                    var title=this.current.title;
+                    if(!title && title !== 0) return;
+                    
+                    var todo=this.copy(this.current)
+                    this.todoList.push(todo)
+                },
+                update:function(){
+
+                }
+            }
+        })
+    </script>
+</body>
+</html>

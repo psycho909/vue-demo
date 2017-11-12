@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Watch</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+	<div>{{msg}}</div>
+
+</div>
+<script>
+
+var app=new Vue({
+	el:"#app",
+	data(){
+		return {
+			msg:123
+		}
+	},
+})
+app.msg='new message'
+console.log(app.$el.textContent)
+Vue.nextTick(function(){
+	console.log(app.$el.textContent)
+})
+</script>
+</body>
+</html>

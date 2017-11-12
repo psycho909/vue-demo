@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>《積分王者爭奪戰》</title>
+	<link rel="stylesheet" href="css/index.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.1/axios.min.js"></script>
+</head>
+<body>
+
+<script>
+	var animJSON='http://163.29.157.32:8080/dataset/6a3e862a-e1cb-4e44-b989-d35609559463/resource/f4a75ba9-7721-4363-884d-c3820b0b917c/download/96d6ab1a3d3942e6b223211b5f141279.json';
+	// $.ajax({
+	// 	url:animJSON,
+	// 	type:'GET',
+	// 	dataType:'json',
+	// 	success:function(res){
+	// 		var dataAnim=res;
+	// 		console.log(dataAnim[0].Name)
+	// 	},
+	// 	error:function(res){
+	// 		console.log('error')
+	// 	}
+	// })
+	axios.get(animJSON)
+		.then(function(res){
+			var dataAnim=res;
+			console.log(dataAnim.data[0].Name)
+		})
+		.catch(function(error){
+			console.log('error')
+		})
+</script>
+</body>
+</html>

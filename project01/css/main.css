@@ -1,0 +1,43 @@
+body{margin:0;}
+.float-left{
+    float: left;
+}
+.float-right{
+    float: right;
+}
+input{
+    width: 70%;
+    padding: 10px 10px;
+    background: inherit;
+}
+#header{
+    background: #27ae60;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+.navbar{
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+}
+#main{
+    width: 50%;
+    margin: 0 auto;
+}
+.wrap{
+    text-align: center;
+}
+.todo,.done{
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.item{
+    background: #fff;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 10px;
+    text-align: left;
+}

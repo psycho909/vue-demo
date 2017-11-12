@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue + mixinx + filters</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<style>
+		.childprops{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<app-modal></app-modal>
+	<app-modalb></app-modalb>
+</div>
+
+<template id="modal">
+	<div class="modal-box">
+		<h2>Hello Mixin</h2>
+		<p>{{name}}</p>
+		<ul>
+			<li v-for="v in nums">{{v.tip}}% : {{v.nums | tip(v.tip*0.01) }}</li>
+		</ul>
+		<app-child message="Props" name="Chen"></app-child>
+		<app-childb></app-childb>
+		<app-childc v-bind:val="nums"></app-childc>
+	</div>
+</template>
+<template id="modalb">
+	<div class="modal-boxb">
+		<h2>MixinBB</h2>
+		<p>{{name}} {{email}}</p>
+		<app-childb item="val">
+			<template scope="props" slot="slot-artlist">
+				<article>
+					<span>{{props.item.title}}</span>
+					<span>{{props.item.desription}}</span>
+				</article>
+			</template>
+			<div class="header" slot="header">Header</div>
+			<div>
+				<p>N1</p>
+				<p>N2</p>
+			</div>
+			<div class="footer" slot="footer">Footer</div>
+		</app-childb>
+	</div>
+</template>
+
+<template id="childarea">
+	<div>
+		<h4>Hello Childrea</h2>
+		<p class="childprops">{{message}}</p>
+		<p class="childprops">{{name}}</p>
+		<button v-on:click="increment">{{counter}}</button>
+	</div>
+</template>
+<template id="childareab">
+	<div>
+		<p>ChildareaB</p>
+		<slot name="slot-artlist" v-bind:item="val" v-for="val in artlist"></slot>
+		<header>
+			<slot name="header"></slot>
+		</header>
+		<main>
+			<slot></slot>
+		</main>
+		<footer>
+			<slot name="footer"></slot>
+		</footer>
+	</div>
+</template>
+<template id="childareac">
+	<div class="container">
+		<div>This is ChildareaC</div>
+		<div v-for="v in nums">{{v.tip}}% : {{v.nums | tip(v.tip*0.01) }}</div>
+	</div>
+</template>
+<script>
+var nums=[
+	{"tip":15,"nums":100},
+	{"tip":25,"nums":100},
+	{"tip":35,"nums":100},
+]
+var Childb={
+	template:'#childareab',
+	props:['val'],
+	data:function(){
+		return{
+			artlist:[
+				{title:'Chrome',desription:'chrome aa'},
+				{title:'IE',desription:'ie bbb'},
+				{title:'FireFox',desription:'firefox ccc'}
+			]
+		}
+	}
+}
+
+var Child={
+	template:'#childarea',
+	props:['message','name'],
+	data:function(){
+		return{
+			counter:0
+		}
+	},
+	methods:{
+		increment:function(){
+			this.counter+=1;
+			this.$emit('increment')
+		}
+	}
+}
+var Childc={
+	template:'#childareac',
+	props:['val'],
+	filters:{
+		tip(value,num){
+			return (value*num).toFixed(2)
+		}
+	}
+}
+var toggle={
+	data(){
+		return{
+			name:'Chen',
+			nums:nums
+		}
+	},
+	filters:{
+		tip(value,num){
+			return (value*num).toFixed(2)
+		}
+	}
+}
+var toggleb={
+	data:function(){
+		return{
+			name:'Chen Ching'
+		}
+	}
+}
+var togglec={
+	data:function(){
+		return{
+			email:'@gmail.com'
+		}
+	}
+}
+var Modal={
+	template:'#modal',
+	mixins:[toggle],
+	components:{
+		appChild:Child,
+		appChildb:Childb,
+		appChildc:Childc
+	}
+}
+var Modalb={
+	template:'#modalb',
+	mixins:[toggleb,togglec],
+	components:{
+		appChildb:Childb
+	}
+}
+new Vue({
+	el:'#app',
+	components:{
+		appModal:Modal,
+		appModalb:Modalb
+	}
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.8/vue.min.js"></script>
+	<style>
+	</style>
+</head>
+<body>
+    <div id="app">
+		<table class="table table-hover" v-cloak>
+			<thead>
+				<tr>
+					<th v-for="param in params">{{param}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="book in books">
+					<td class="text-right">{{book.id}}</td>
+					<td class="text-right">{{book.name}}</td>
+					<td class="text-right">{{book.author}}</td>
+					<td class="text-right">{{book.price}}</td>
+					<td class="text-right">
+						<button type="button" class="btn btn-success" @click="books.splice(book,1)">删除</button>
+					</td>
+				</tr>
+				<tr>
+					<td class="text-right" colspan="5">
+						<h4>总价：{{sum}}</h4>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="add-book">
+			<legend>添加书籍</legend>
+			<div class="form-group">
+				<label>书名</label>
+				<input type="text" class='form-control' v-model="book.name">
+			</div>
+			<div class="form-group">
+				<label>作者</label>
+				<input type="text" class='form-control' v-model="book.author">
+			</div>
+			<div class="form-group">
+				<label>价格</label>
+				<input type="text" class='form-control' v-model="book.price">
+			</div>
+			<button class="btn btn-primary btn-block" @click="addBook">添加</button>
+		</div>
+    </div>
+</body>
+<script>
+var app = new Vue({
+  el:"#app",
+  data:{
+    sortparam:'',
+    book:{
+      id:0,
+      author:'',
+      name:'',
+      price:''
+    },
+    params:['ID','author','name','price'],
+    books: [
+    	{
+            id: 1,
+            author: '曹雪芹',
+            name: '红楼梦',
+            price: 32.0
+        }, {
+            id: 2,
+            author: '施耐庵',
+            name: '水浒传',
+            price: 30.0
+        }, {
+            id: 3,
+            author: '罗贯中',
+            name: '三国演义',
+            price: 24.0
+        }, {
+            id: 4,
+            author: '吴承恩',
+            name: '西游记',
+            price: 20.0
+        }
+    ]
+  },
+  computed:{
+    sum:function(){
+      var result = 0;
+      for (var i=0;i<this.books.length;i++){
+        result += Number(this.books[i].price)
+      };
+      return result;
+    }
+  },
+  methods:{
+    addBook:function(){
+      this.book.id = this.books.length +1;
+      this.books.push(this.book);
+      this.book = {id:this.book.id,author: '', name: '', price: ''}
+    },
+    delBook:function(book){
+      this.books.splice(book,1);
+    }
+  }
+})
+</script>
+</html>

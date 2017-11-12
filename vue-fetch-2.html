@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Vue + Fetch 獲取JSON</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
+      <style>
+            html,body{
+                  width: 100%;
+                  height: 100%;
+            }
+            .loader-box{
+                  width: 100%;
+                  height: 100%;
+                  background-color: #fff;
+                  position: fixed;
+                  top: 0px;
+                  left: 0px;
+                  z-index: 3;
+            }
+            .loader{
+                  width: 300px;
+                  height: 300px;
+                  text-align: center;
+                  line-height: 300px;
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform:translate(-50%,-50%);
+            }
+      </style>
+</head>
+
+<body>
+      <div class="loader-box">
+            <div class="loader">loader</div>
+      </div>
+      <div class="container" id="app">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                  <a href="#" class="navbar-brand">navbar</a>
+                  <button class="navbar-toggler" data-target="#navbar" data-toggle="collapse">
+                        <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbar">
+                        <ul class="navbar-nav mr-auto">
+                              <li class="nav-item active"><a href="#" class="nav-link">Home</a></li>
+                        </ul>
+                        <div class="form-inline my-r my-lg-0">
+                              <input type="text" class="form-control mr-sm-2" v-model="searchTxt">
+                              <button class="btn btn-outline-success my-2 my-sm-2">Seach</button>
+                        </div>
+                  </div>
+            </nav>
+            
+            <div class="row">
+                  <div class="col-12">
+                        <table class="table table-bordered table-hover table-responsive">
+                              <thead class="thead-inverse">
+                                    <th></th>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th class="text-center">Nat</th>
+                                    <th class="w-50">Mail</th>
+                                    <th>Phone</th>
+                              </thead>
+                              <tbody id="tbody">
+                                    <tr 
+                                          v-for="(user,index) in userFilter"
+                                          v-if="index  >= (curPage-1)*pageSize && index < (curPage * pageSize)"
+                                    >
+                                          <td><img v-bind:src="user.picture.thumbnail" alt=""></td>
+                                          <td>{{user.id.name}}</td>
+                                          <td>{{user.name.last}} {{user.name.first}}</td>
+                                          <td>{{user.gender}}</td>
+                                          <td class="text-center">{{user.nat}}</td>
+                                          <td>{{user.email}}</td>
+                                          <td>{{user.phone}}</td>
+                                    </tr>
+                              </tbody>
+                        </table>
+                  </div>
+                  <ul class="pagination mx-auto">
+                        <li v-if="curPage == 1" class="page-item disabled"><a href="#" class="page-link">上一頁</a></li>
+                        <li v-else class="page-item"><a href="#" class="page-link" v-on:click="prevPage()">上一頁</a></li>
+                        <template v-for="page in pageCount">
+                              <li v-if="page ==curPage " class="page-item active"><a href="#" class="page-link" v-on:click="numPage(page)">{{page}}</a></li>
+                              <li v-else class="page-item"><a href="#" class="page-link" v-on:click="numPage(page)">{{page}}</a></li>
+                        </template>
+                        <li v-if="curPage == pageCount" class="page-item disabled"><a href="#" class="page-link">下一頁</a></li>
+                        <li v-else class="page-item"><a href="#" class="page-link" v-on:click="nextPage()">下一頁</a></li>
+                  </ul>
+            </div>
+      </div>
+
+      <script>
+            var vm=new Vue({
+                  el:"#app",
+                  data:{
+                        datas:[],
+                        pageSize:8,
+                        curPage:1,
+                        pageCount:0,
+                        searchTxt:'',
+                        url:"https://randomuser.me/api/?results=64"
+                  },
+                  computed:{
+                        userFilter:function(){
+                              return this.datas.filter((user)=>{
+                                    return user.gender.substr(0,1).toLowerCase().indexOf(this.searchTxt.substr(0,1).toLowerCase()) != -1;
+                              })
+                        }
+                  },
+                  mounted:function(){
+                        fetch(this.url).then((res)=>{
+                              return res.json();
+                        }).then((datas)=>{
+                              this.datas=datas.results
+                              this.pageCount=Math.ceil(this.datas.length/this.pageSize);
+                        }).then(()=>{
+                              $('.loader-box').animate({
+                                    opacity:0
+                              },500,function(){
+                                    $(this).remove();
+                              });
+                        }).catch((err)=>{
+                              console.log(err)
+                        })
+                  },
+                  methods:{
+                        prevPage:function(){
+                              if(this.curPage < 1){
+                                    return;
+                              }
+                              return this.curPage--
+                        },
+                        nextPage:function(){
+                              if(this.curPage >= this.pageCount){
+                                    return;
+                              }
+                              return this.curPage++;
+                        },
+                        numPage:function(num){
+                              if(num == this.curPage){
+                                    return;
+                              }
+                             this.curPage=num;
+                        }
+                  }
+            })
+      </script>
+</body>
+
+</html>

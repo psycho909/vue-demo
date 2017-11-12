@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>component</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<boxsss></boxsss>
+	<boxss></boxss>
+	<boxs></boxs>
+	<header></header>
+	<box></box>
+</div>
+
+</body>
+<template id="box">
+	<div>this is box</div>
+</template>
+<script type="text/x-template" id="boxss">
+	<p>Hello x-template</p>
+</script>
+<script type="text/x-template" id="boxsss">
+	<p>Hello Boxssss</p>
+</script>
+<script>
+var boxss={
+	template:'#boxss'
+}
+var boxsss={
+	template:'#boxsss'
+}
+var box={
+	template:'#box'
+}
+var header_a=Vue.extend({
+	template:'<p>{{message}}-{{a}}</p>',
+	data:function(){
+		return {
+			message:'Hello , I am header!'
+		}
+	},
+	props:['a']
+})
+new header_a({propsData:{a:1222}}).$mount('header');
+
+Vue.component('box',{
+	template:'#box'
+})
+
+Vue.component('boxs',{
+	template:'<div>This is Box2</div>'
+})
+
+// Vue.component('boxss',{
+// 	template:'#boxss'
+// })
+var app=new Vue({
+	el:"#app",
+	data:{
+		message:"TW",
+		who:'componentA'
+	},
+	components:{
+		'boxss':boxss,
+		'boxsss':boxsss
+	}
+})
+
+</script>
+</html>

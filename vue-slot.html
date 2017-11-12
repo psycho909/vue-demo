@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>slot</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+	<style>
+		.red{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<my-list :items="shapes" title="Shapes" titles="blue">
+		<template scope="shape">
+			<div>{{shape.name}} <small>({{shape.sides}} sides)</small> </div>
+		</template>
+	</my-list>
+</div>
+<template id="my-list">
+	<div class="my-list">
+		<div class="title" :class="titles">{{title}}</div>
+		<div class="list">
+			<div class="list-item" v-for="item in items">
+				<slot v-bind="item"></slot>
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+Vue.component('my-list',{
+	template:'#my-list',
+	props:['title','items','titles']
+})
+var app=new Vue({
+	el:"#app",
+	data(){
+		return {
+			shapes:[
+				{name:'Square',sides:4},
+				{name:'Hexagon',sides:6},
+				{name:'Triangle',sides:3},
+			],
+			arr:[1,2,3]
+		}
+	}
+})
+</script>
+</body>
+</html>

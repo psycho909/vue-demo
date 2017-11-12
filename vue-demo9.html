@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>component</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<jspang></jspang>
+	<panda v-bind:from-here="message"></panda>
+	<dog food="beef"></dog>
+</div>
+
+</body>
+<script>
+Vue.component('jspang',{
+	template:'<div>Hello world</div>'
+})
+var app=new Vue({
+	el:"#app",
+	data:{
+		message:"TW"
+	},
+	components:{
+		'panda':{
+			template:'<div>Panda from {{fromHere}}</div>',
+			props:['fromHere']
+		},
+		'dog':{
+			template:'<div>Dog eat {{food}}</div>',
+			props:['food']
+		}
+	}
+})
+
+</script>
+</html>

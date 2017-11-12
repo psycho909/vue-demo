@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue + router</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.2.1/vue-router.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<jspan>
+		<span slot="bolgUrl">{{jspanData.bolgUrl}}</span>
+		<span slot="netName">Chen</span>
+		<span slot="skill">{{jspanData.skill}}</span>
+	</jspan>
+	<router-link to="/">Go to Foo</router-link>
+    <router-link to="/bar">Go to Bar</router-link>
+    <router-view></router-view>
+</div>
+
+<template id="tep">
+	<div>
+		<p>Blog: <slot name="bolgUrl"></slot></p>
+		<p>webName: <slot name="netName"></slot></p>
+		<p>Skill: <slot name="skill"></slot></p>
+	</div>
+</template>
+
+<template id="foo">
+	<div>foo</div>
+</template>
+
+<template id="bar">
+	<div>bar</div>
+</template>
+</body>
+
+<script>
+var foo={
+	template:'#foo'
+}
+var bar={
+	template:'#bar'
+}
+var routes=[
+	{path:'/',component:foo},
+	{path:'/bar',component:bar},
+]
+
+var router=new VueRouter({
+	routes
+})
+var app=new Vue({
+	el:"#app",
+	router:router,
+	data:{
+		num:1,
+		jspanData:{
+			bolgUrl:'http://www.yahoo.com.tw',
+			netName:'jspan',
+			skill:'web'
+		}
+	},
+	components:{
+		'jspan':jspan
+	},
+	methods:{
+		add:function(){
+			this.num++;
+		}
+	}
+})
+
+</script>
+</html>

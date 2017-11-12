@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<style>
+		.css{
+			color:#852424;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<input type="text" class="city">
+	<input type="text" class="country">
+	<button class="btn" v-on:click="sub">BTN</button>
+	<div v-if="this.status == 200" class="box">
+		<div>國家 {{datas.sys.country}}</div>
+		<div>COD {{datas.cod}}</div>
+	</div>
+	<div v-else class="box">
+		<div v-if="this.status == 404" class="box-warn">
+			<div>輸入錯誤</div>
+			<div>{{datas.message}}</div>
+			<div>COD {{datas.cod}}</div>
+		</div>
+		<div v-else class="box-warn">
+			請輸入國家
+		</div>
+	</div>
+</div>
+</body>
+<script>
+var app=new Vue({
+	el:"#app",
+	data:{
+		myArr:[],
+		datas:[],
+		message:"",
+		txt:"",
+		url:"http://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=62bb3ecb2a47725a79e71aa487e5d05e",
+		myweather:{},
+		status:0
+	},
+	watch:{
+		url:function(val){
+			fetch(this.url).then((res)=>{
+				this.status=res.status
+				return res.json();
+			}).then((datas)=>{
+				this.datas=datas
+				console.log(datas)
+			}).catch((err)=>{
+				console.log(err)
+			})
+		}
+	},
+	mounted:function(){
+		// fetch(this.url).then((res)=>{
+		// 	this.status=res.status
+		// 	return res.json();
+		// }).then((datas)=>{
+		// 	this.datas=datas
+		// 	console.log(datas)
+		// }).catch((err)=>{
+		// 	console.log(err)
+		// })
+
+	},
+	methods:{
+		sub:function(){
+			this.url=`http://api.openweathermap.org/data/2.5/weather?q=${$('.city').val()},${$('.country').val()}&appid=62bb3ecb2a47725a79e71aa487e5d05e`
+		}
+	}
+})
+
+console.log(app.$data.count)
+</script>
+</html>

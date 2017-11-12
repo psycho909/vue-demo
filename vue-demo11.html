@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>component</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<panda></panda>
+	<component v-bind:is="who"></component>
+	<button v-on:click="changeComponent">button</button>
+</div>
+
+</body>
+<script>
+var city={
+	template:'<div>Hello City</div>'
+}
+var pandaComponent={
+	template:`
+	<div>
+		<div>Hello Panda</div>
+		<city></city>
+	</div>
+	`,
+	components:{
+		'city':city
+	}
+}
+var componentA={
+	template:'<div>I am componentA</div>'
+}
+var componentB={
+	template:'<div>I am componentB</div>'
+}
+var componentC={
+	template:'<div>I am componentC</div>'
+}
+var app=new Vue({
+	el:"#app",
+	data:{
+		message:"TW",
+		who:'componentA'
+	},
+	components:{
+		'panda':pandaComponent,
+		'componentA':componentA,
+		'componentB':componentB,
+		'componentC':componentC
+	},
+	methods:{
+		changeComponent:function(){
+			if(this.who=='componentA'){
+				this.who='componentB'
+			}else if(this.who=='componentB'){
+				this.who='componentC'
+			}else if(this.who=='componentC'){
+				this.who='componentA'
+			}
+		}
+	}
+})
+
+</script>
+</html>

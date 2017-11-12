@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MyComputer</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app" class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-horizontal">
+				<div class="form-group" v-for="(item,i) in getData">
+					<label v-bind:for="item.name" class="control-label col-md-2">{{item.name}}</label>
+					<div class="col-md-10">
+						<input type="text" v-model="item.price" v-bind:id="item.name">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="vga" class="control-label col-md-2">vga</label>
+					<div class="col-md-10">
+						<select id="vga" class="form-control" v-on:change="changed($event)">
+							<option value="" disabled selected>空</option>
+							<option v-bind:value="vga.price" v-for="vga in vgaData">{{vga.name}}--{{vga.price}}</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="test" class="control-label col-md-2">Test</label>
+					<div class="col-md-10">
+						<input type="text" v-model="testprice">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-2">
+						<div class="label label-info">總計</div>
+					</div>
+					<div class="col-md-10">
+						<div>{{total}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script>
+var getData=[
+	{name:'case',price:3000},
+	{name:'mb',price:2000},
+	{name:'ram',price:1500},
+	{name:'power',price:3600},
+	{name:'cpu',price:7000}
+]
+var vgaData=[
+	{name:'case',price:3000},
+	{name:'mb',price:2000},
+	{name:'ram',price:1500},
+	{name:'power',price:3600},
+	{name:'cpu',price:7000}
+]
+var app=new Vue({
+	el:"#app",
+	data:{
+		getData:getData,
+		vgaData:vgaData,
+		vgaprice:0,
+		all:0,
+		testprice:0
+	},
+	computed:{
+		total:function(){
+			this.all=0;
+			for(var i=0;i<getData.length;i++){
+				this.all+=parseInt(getData[i].price)
+			}
+			return this.all+parseInt(this.vgaprice)+this.testprice;
+		}
+	},
+	methods:{
+		changed:function(event){
+			var vga=event.target;
+			this.vgaprice=$(vga).find('option:selected').val();
+			return this.vgaprice;
+		}
+	}
+})
+
+</script>
+</html>

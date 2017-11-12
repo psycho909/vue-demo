@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<radio name="method" value="phone" label="Phone" id="phone"></radio>
+	<radio name="method" value="email" label="Email" id="email"></radio>
+	<box id="bb" class-name="boxss" data-name="box" ele-name="BOX"></box>
+</div>
+<template id="radio">
+	<div class="custom-radio" :class="className">
+		<input type="radio" :name="name" :class="className" :id="id" :value="value" @change="updateInput">
+		<label :for="id">{{label}}</label>
+	</div>
+</template>
+<template id="box">
+	<div class="boxs" :class="className">
+		<div class="child-box" :id="id" :data-title="dataName">{{eleName}}</div>
+	</div>
+</template>
+</body>
+<script>
+	Vue.component('radio',{
+		template:'#radio',
+		props:{
+			name:{
+				type:String,
+				required:false
+			},
+			className:{
+				type:String,
+				required:false
+			},
+			id:{
+				type:String,
+				required:false
+			},
+			value:{
+				type:String,
+				required:false
+			},
+			label:{
+				type:String,
+				required:false
+			}
+		},
+		methods:{
+			updateInput:function(event){
+				this.$emit('input',event.target.value)
+				console.log(event.target.value)
+			}
+		}
+	})
+	Vue.component('box',{
+		template:'#box',
+		props:{
+			id:{
+				type:String,
+				reqired:false
+			},
+			className:{
+				type:String,
+				required:false
+			},
+			dataName:{
+				type:String,
+				required:false
+			},
+			eleName:{
+				type:String,
+				required:false
+			}
+		}
+	})
+var app=new Vue({
+	el:"#app",
+	data:{
+		message:""
+	}
+})
+
+</script>
+</html>

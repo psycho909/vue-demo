@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>methods</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<div>{{a}}</div>
+	<p><button v-on:click="add(2,$event)">asd</button></p>
+	<p><btn v-on:click.native='add(3)'></btn></p>
+</div>
+<button onclick="app.add(4)">outADD</button>
+</body>
+<script>
+var btn={
+	template:'<button>Tadd</button>'
+}
+var app=new Vue({
+	el:"#app",
+	data:{
+		a:1
+	},
+	components:{
+		'btn':btn
+	},
+	methods:{
+		add:function(num,event){
+			if(num!=null){
+				this.a+=num;
+			}else{
+				this.a++;
+			}
+			console.log(event)
+		}
+	}
+})
+
+</script>
+</html>

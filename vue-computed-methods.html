@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Watch</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+</head>
+
+<body>
+	<div id="app">
+		<h1>初中一年级学生考试分数统计</h1>
+		<div class="control">
+			<label for="studentName">学生：</label>
+			<input type="text" v-model="newTest.studentName" id="studentName" />
+			<label for="score">分数：</label>
+			<input type="text" v-model="newTest.score" id="score" />
+			<button @click="addTestScore">添加</button>
+		</div>
+		<ul>
+			<li v-for="test in tests">{{ test.studentName }}: {{test.score}}</li>
+		</ul>
+		<div class="total">
+			<span>总分：{{ totalScore() }} 分</span>
+			<span>平均分：{{ averageScore() }} 分</span>
+		</div>
+	</div>
+	<script>
+
+		var app = new Vue({
+			el: "#app",
+			data() {
+				return {
+					newTest: {
+						studentName: 'Jack',
+						score: 0,
+						total: 0,
+						average: 0
+					},
+					tests: [
+						{
+							studentName: 'Billy',
+							score: 76
+						},
+						{
+							studentName: 'Suzy',
+							score: 85
+						},
+						{
+							studentName: 'Emma',
+							score: 93
+						}
+					]
+				}
+			},
+			methods:{
+				addTestScore:function(){
+					this.tests.push({
+						studentName:this.newTest.studentName,
+						score:this.newTest.score
+					})
+					this.newTest.studentName='';
+					this.newTest.score=0
+				},
+				totalScore:function(){
+					let totalArray=[];
+					for(let i=0;i<this.tests.length;i++){
+						totalArray.push(parseInt(this.tests[i].score))
+					}
+					this.newTest.total=totalArray.reduce((x,y)=>{
+						return x+ y
+					})
+					return this.newTest.total
+				},
+				averageScore:function(){
+					let totalArray=[];
+					for(let i=0;i<this.tests.length;i++){
+						totalArray.push(parseInt(this.tests[i].score))
+					}
+					this.newTest.total=totalArray.reduce((x,y)=>{
+						return x+ y
+					})
+
+					return this.newTest.average=parseInt(this.newTest.total/totalArray.length).toFixed(2);
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>

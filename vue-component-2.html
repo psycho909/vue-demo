@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<template id="main-component">
+	<main>
+		<h1>Slot</h1>
+		<p>Text</p>
+		<slot name="slot-carts" :item="val" v-for="val in cart"></slot>
+	</main>
+</template>
+
+<template id="cart-item">
+	<div class="container">
+		<header>Header</header>
+		<main-component>
+			<template scope="props" slot="slot-carts">
+				<article>
+					<p>{{props.item.title}}</p>
+				</article>
+			</template>
+		</main-component>
+	</div>
+</template>
+
+<script type="text/x-template" id="childbox">
+	<div class="child-box">
+		<h3>Child</h3>
+	</div>
+</script>
+
+<script type="text/x-template" id="my-component">
+	<div class="box">
+		<h1>Box</h1>
+		<childbox></childbox>
+	</div>
+</script>
+<div id="app">
+	<cart-item></cart-item>
+	<my-component></my-component>
+</div>
+</body>
+<script>
+Vue.component('main-component',{
+	template:'#main-component',
+	data(){
+		return{
+			cart:[
+				{title:'Coffe'},
+				{title:'Apple'},
+				{title:'Tea'}
+			]
+		}
+	}
+})
+Vue.component("my-component",{
+	template:'#my-component'
+})
+
+Vue.component("cart-item",{
+	template:'#cart-item'
+})
+
+Vue.component("my-component",{
+	template:'#my-component'
+})
+
+Vue.component("childbox",{
+	template:'#childbox'
+})
+
+var app=new Vue({
+	el:"#app",
+	data:{
+		message:""
+	}
+})
+
+</script>
+</html>

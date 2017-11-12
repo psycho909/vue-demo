@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,IE=8">
+	<title>vue + slot</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.3/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+	<style>
+		@media (max-width:575px){
+			.container-nav{
+				position: static;
+				width: 100%;
+			}
+		}
+	</style>
+</head>
+<body>
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+	<div class="container container-nav">
+		<div class="nav-header">
+			<button class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a href="#" class="navbar-brand">Vue</a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="navbar">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a href="#" class="nav-link">Home</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">Link</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">Disabled</a>
+				</li>
+			</ul>
+			<form action="" class="form-inline my-2 my-lg-0">
+				<input type="text" class="form-control mr-sm-2">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		</div>
+	</div>
+</nav>
+<div id="app">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3 col-md-3 col-sm-6" v-for="n in nba">
+				<ball v-bind:nba_data="n"></ball>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<template id="ball">
+	<div>
+		<div>價格 -- {{nba_data.num}}</div>
+		<div>Eng -- {{nba_data.name}}</div>
+		<div>Team -- {{nba_data.team}}</div>
+		<p>{{total}}</p>
+		<button v-on:click="add">+</button>
+	</div>
+</template>
+
+</body>
+
+<script>
+var nba=[
+	{
+		'num':'SF',
+		'name':'LBJ',
+		'team':'Cavaliers'
+	},
+	{
+		'num':'PF',
+		'name':'K.Love',
+		'team':'Cavaliers'
+	},
+	{
+		'num':'PG',
+		'name':'K.Irving',
+		'team':'Cavaliers'
+	}
+	,
+	{
+		'num':'SF',
+		'name':'K.Durant',
+		'team':'Warriors'
+	}
+]
+var date=(x)=>(
+	x+1
+);
+
+Vue.component('ball',{
+	template:'#ball',
+	data(){
+		return{
+			total:0
+		}
+	},
+	props:['nba_data'],
+	methods:{
+		add:function(){
+			this.total++;
+			console.log(this.total)
+		}
+	}
+})
+var app=new Vue({
+	el:"#app",
+	data:{
+		parentMsg:'hello',
+		num:1,
+		jspanData:{
+			bolgUrl:'http://www.yahoo.com.tw',
+			netName:'jspan',
+			skill:'web'
+		},
+		nba:nba
+	},
+	methods:{
+		add:function(){
+			this.num++;
+		}
+	}
+})
+
+
+</script>
+</html>

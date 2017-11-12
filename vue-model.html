@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+	<div class="form-group">
+		<div class="msg">{{msg}}</div>
+		<input type="text" v-model="msg" placeholder="msg">
+	</div>
+	<div class="form-group">
+		<div class="msg">{{msg1}}</div>
+		<input type="text" v-model="msg1" placeholder="msg1">
+	</div>
+	<div v-bind:class="id_num">{{raw_html}}</div>
+	<div v-bind:class="{id_num:id_num_}">{{raw_html}}</div>
+	<div v-bind:class="[id_num_?box:boxs,id_num]">{{raw_html}}</div>
+	<div v-html="raw_html"></div>
+</div>
+<script>
+var app=new Vue({
+	el:"#app",
+	data(){
+		return {
+			msg:'MSG',
+			msg1:'MSG1',
+			raw_html:'<img src="http://www.sugobbs.com/static/image/common//logo_sugo.png" alt="" />',
+			id_num:"id_box",
+			id_num_:false,
+			box:"box",
+			boxs:"boxs"
+		}
+	}
+})
+</script>
+</body>
+</html>

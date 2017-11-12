@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Watch</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+	<div>{{searchQuery}}</div>
+	<input type="text" v-model="searchQuery">
+	<div v-if="isSearching">Searching...</div>
+	<div v-else>
+		<ol>
+			<li v-for="result in results">{{result}}</li>
+		</ol>
+	</div>
+	<button @click='count++'>+</button>
+	<div>{{count}}</div>
+	<button @click="person.name.firstName='陳'">CHANGE</button>
+</div>
+<script>
+
+var app=new Vue({
+	el:"#app",
+	data(){
+		return {
+			searchQuery:'',
+			results:[],
+			isSearching:false,
+			count:0,
+			person:{
+				name:{
+					firstName:'Chen',
+					lastName:'Ching'
+				}
+			}
+		}
+	},
+	watch:{
+		searchQuery:function(query){
+			this.isSearching=true;
+			console.log(query)
+			setTimeout(()=>{
+				this.results=['JS','CSS','VUE','HTML']
+				this.isSearching=false;
+			},500)
+		}
+	}
+})
+app.$watch('count',function(newValue,oldValue){
+	console.log('Count: '+oldValue+'to'+newValue)
+})
+app.$watch('person.name.firstName',function(newValue,oldValue){
+	console.log('firstName: '+oldValue+' to '+newValue)
+},{deep:true})
+</script>
+</body>
+</html>

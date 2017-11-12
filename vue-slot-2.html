@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>slot</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+	<style>
+		.red{
+			color:red;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<c-container></c-container>
+</div>
+<!-- 子 -->
+<template id="content">
+	<main>
+		<h1>瀏覽器</h1>
+		<p>文字摘要介紹</p>
+		<slot name="slot-content" :item="val" v-for="val in artlist"></slot>
+	</main>
+</template>
+<!-- 父 -->
+<template id="container">
+	<div class="container">
+		<header>
+			<ul>
+				<li>Home</li>
+				<li>About</li>
+			</ul>
+		</header>
+		<c-content>
+			<template scope="props" slot="slot-content">
+				<article>
+					<h1>{{props.item.title}}</h1>
+					<p>{{props.item.description}}</p>
+				</article>
+			</template>
+		</c-content>
+	</div>
+</template>
+<script>
+	//子
+Vue.component('c-content',{
+	template:"#content",
+	data(){
+		//Ajax get...
+		return {
+			artlist:[
+				{title:'Chrome',description:'Chorme描述......'},
+				{title:'IE',description:'IE Edge描述......'},
+				{title:'Firefox',description:'Firefox描述......'}
+			]
+		}
+	}
+})
+//父
+Vue.component('c-container',{
+	template:"#container",
+	props:['title']
+})
+var app=new Vue({
+	el:"#app",
+	data(){
+		return {
+
+		}
+	}
+})
+</script>
+</body>
+</html>

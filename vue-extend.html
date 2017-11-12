@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+	{{data.a}}
+</div>
+<script>
+var MyComponent=Vue.extend({
+	template:`<div>Vue Extend Component</div>`
+})
+Vue.component('mycomponent',MyComponent)
+
+var data={
+	a:1
+}
+
+var vm=new Vue({
+	el:"#app",
+	data:{
+		data:data
+	},
+	created:function(){
+		console.log('data.a is: '+this.data.a)
+	}
+})
+
+vm.$watch('data.a',function(newVal,oldVal){
+	console.log('old: '+oldVal+',new: '+newVal)
+})
+</script>
+</body>
+</html>

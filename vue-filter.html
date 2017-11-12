@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Watch</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+	<div>{{price| toFixed(2) | toUSD}}</div>
+	<div>{{name | Upper}}</div>
+	<ul>
+		<li v-for="article in articles">
+			<h2><a :href="article.link">{{article.title}}</a></h2>
+			<div>{{article.summary | readMore(19,'...')}}</div>
+			<div>閱讀更多</div>
+		</li>
+	</ul>
+</div>
+<script>
+Vue.filter('toFixed',function(v,limit){
+	return v.toFixed(limit);
+})
+Vue.filter('toUSD',function(v){
+	return `$${v}`
+})
+Vue.filter('readMore',function(text,length,suffix){
+	return text.substring(0,length)+suffix
+})
+var app=new Vue({
+	el:"#app",
+	data(){
+		return {
+			price:351.3333,
+			name:"chen",
+			articles:[
+				{
+					title:'若能獨當一面一個人 工作月薪50K',
+					summary:'最低薪中班月薪也有38K，但其中最矚目就是「獨當一面一個人」，薪水高達50K，比普通上班族還要高',
+					link:'//www.google.com'
+				},{
+					title:'Yahoo',
+					summary:'Yahoo Yahoo Yahoo',
+					link:'//www.yahoo.com'
+				}
+			]
+		}
+	},
+	filters:{
+		Upper:function(v){
+			return v.toUpperCase();
+		}
+	}
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+	<style>
+		button[disabled] {
+			cursor: not-allowed;
+			opacity: .5;
+		}
+	</style>
+</head>
+<body>
+<body class="flex items-center justify-center vh-100">
+	<div class="" id="twitterVue">
+		<button class="button-reset bn bg-green white fw5 pv2 ph3" v-on:click="showModal">Compose Tweet</button>
+		<transition
+			name="modal-transition"
+			v-on:enter="modalEnter"
+			v-on:leave="modalLeave">
+			<div v-if="modalShowing">
+				<div class="w-75 center ba b--black-10">
+					<div class="bg-near-white pa3">
+						<textarea v-model="tweet" name="tweet" rows="3" class="w-100 br2 ba b--black-10 pa2" placeholder="Write your tweet here"></textarea>
+						<div class="mt3 tr">
+							<span class="mr3 black-70" v-bind:class="{'dark-red':underTwentyMark,'light-red':underTenMark }">**{{ charactersRemaining }}**</span>
+							<button :disabled="tweetIsOutOfRange" class="button-reset bg-blue bn white f6 fw5 pv2 ph3 br2 pointer dim">Tweet</button>
+						</div>
+					</div>
+
+					<p>The value of <strong>tweet </strong>is: **{{tweet}}** </p>
+					<p>The value of <strong>tweetIsEmpty</strong>is: **{{ tweetIsOutOfRange}}**</p>
+				</div>
+			</div>
+		</transition>
+	</div>
+</body>
+</body>
+<script>
+var MAX_TWEET_LENGTH=140;
+
+var app=new Vue({
+	el:"#twitterVue",
+	data:{
+		tweet:'',
+		modalShowing:false
+	},
+	computed:{
+		tweetIsEmpty:function(){
+			return this.tweet.length === 0;
+		},
+		charactersRemaining:function(){
+			return MAX_TWEET_LENGTH - this.tweet.length;
+		},
+		tweetIsOutOfRange:function(){
+			return this.charactersRemaining == MAX_TWEET_LENGTH || this.charactersRemaining < 0
+		},
+		underTwentyMark:function(){
+			return this.charactersRemaining <= 20 && this.charactersRemaining >10;
+		},
+		underTenMark:function(){
+			return this.charactersRemaining <= 10;
+		}
+	},
+	methods:{
+		logNameToConsole:function(){
+			if(this.name != 'Donal Trump'){
+				console.log(this.name)
+			}else{
+				console.warn('Sorry,I do not understand')
+			}
+		},
+		modalEnter:function(el,done){
+			Velocity(el,'fadeIn',{duration:300,complate:done,display:'flex'})
+		},
+		modalLeave:function(el,done){
+			Velocity(el,'fadeOut',{duration:300,complate:done})
+		},
+		hideModal:function(){
+			this.modalShowing=false;
+		},
+		showModal:function(){
+			this.modalShowing=true;
+		}
+	}
+})
+
+</script>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Fetch 獲取JSON + 時間倒數設置 </title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+      </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.2/vue.min.js"></script>
+      <style>
+            #content1 {
+                  display: block;
+            }
+
+            #content2 {
+                  display: none;
+            }
+
+            #content1:target,
+            #content2:target {
+                  display: block;
+            }
+
+            #content1:target~.nav li:first-child {
+                  background: #ff7300;
+                  color: #fff;
+            }
+
+            #content2:target~.nav li:last-child {
+                  background: #ff7300;
+                  color: #fff;
+            }
+
+            .content {
+                  width: 100px;
+                  height: 200px;
+                  border: 1px solid #000;
+            }
+      </style>
+</head>
+
+<body>
+
+
+      <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light bg-light">
+                  <a class="navbar-brand" href="#">Navbar</a>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                              <li class="nav-item active">
+                                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                              </li>
+                              <li class="nav-item">
+                                    <a class="nav-link" href="#">Link</a>
+                              </li>
+                              <li class="nav-item">
+                                    <a class="nav-link disabled" href="#">Disabled</a>
+                              </li>
+                        </ul>
+                        <form class="form-inline my-2 my-lg-0">
+                              <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                              <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                  </div>
+            </nav>
+      </div>
+      <div class="container" id="app">
+            <div class="row">
+                  <table class="table table-responsive">
+                        <thead>
+                              <th>Name</th>
+                              <th>Mail</th>
+                              <th>Phone</th>
+                        </thead>
+                        <tbody id="tbody">
+                              <template v-for="(data,index) in datas">
+                                    <tr v-if="index >= (curPage-1)*pageSize && index < curPage*pageSize">
+                                          <td>{{data.name.first}} {{data.name.last}}</td>
+                                          <td>{{data.email}}</td>
+                                          <td>{{data.phone}}</td>
+                                    </tr>
+                              </template>
+                        </tbody>
+                  </table>
+            </div>
+            <div class="row">
+                  <ul class="pagination">
+                        <li v-if="curPage==1" class="page-item disabled"><a href="#" class="page-link">上一頁</a></li>
+                        <li v-else class="page-item"><a href="#" class="page-link" v-on:click="prePage()">上一頁</a></li>
+                        <template v-for="page in pageCount">
+                              <li v-if="page ==curPage " class="page-item active"><a href="#" class="page-link" v-on:click="numPage(page)">{{page}}</a></li>
+                              <li v-else class="page-item"><a href="#" class="page-link" v-on:click="numPage(page)">{{page}}</a></li>
+                        </template>
+                        <li v-if="curPage == pageCount" class="page-item disabled"><a href="#" class="page-link">下一頁</a></li>
+                        <li v-else class="page-item"><a href="#" class="page-link" v-on:click="nextPage()">下一頁</a></li>
+                  </ul>
+            </div>
+      </div>
+
+      <script>
+            var vm=new Vue({
+                  el:"#app",
+                  data:{
+                        datas:{},
+                        pageSize:6,
+                        curPage:1,
+                        pageCount:0,
+                        url:"https://randomuser.me/api/?results=25"
+                  },
+                  created:function(){
+                        fetch(this.url,{
+                              method:"get",
+                              headers:new Headers({
+                                    "Content-Type":'text/json'
+                              })
+                        }).then((res)=>{
+                              return res.json();
+                        }).then((datas)=>{
+                              this.datas=datas.results
+                              this.pageCount=Math.ceil(this.datas.length/this.pageSize);
+                        }).catch((err)=>{
+                              console.log(err)
+                        })
+                  },
+                  methods:{
+                        prePage(){
+                              if(this.curPage>1){
+                                    this.curPage=this.curPage-1;
+                              }
+                        },
+                        nextPage(){
+                              if(this.curPage<this.pageCount){
+                                    this.curPage=this.curPage+1
+                              }
+                        },
+                        numPage(num){
+                              if(this.curPage == num){
+                                    return;
+                              }
+                              this.curPage=num;
+                        }
+                  }
+            })
+      </script>
+</body>
+
+</html>

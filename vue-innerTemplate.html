@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Vue innerTemplate</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+	<message @sss="father"></message>
+</div>
+<script>
+Vue.component('message',{
+	methods:{
+		son:function(){
+			this.$emit('sss')
+		}
+	},
+	template:`
+		<div class="box">
+			<button class="btn" @click="son">BTN</button>
+		</div>
+	`,
+})
+var app=new Vue({
+	el:"#app",
+	data(){
+		return {
+			name:'Chen'
+		}
+	},
+	methods:{
+		father:function(){
+			console.log(this.name)
+		}
+	}
+})
+</script>
+</body>
+</html>

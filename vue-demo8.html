@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>template</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	
+</div>
+<template id="dd2">
+	<h2 style="color:red">I am template2</h2>
+</template>
+<script type="text/x-template" id="dd3" src="demo8.js">
+
+</script>
+</body>
+<script>
+var app=new Vue({
+	el:"#app",
+	data:{
+		message:""
+	},
+	template:'#dd3'
+	// template:`
+	// 	<h2 style="color:red">I am template</h2>
+	// `
+})
+
+</script>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>v-bind,v-bind:class</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
+	<style>
+		.btn{
+			font-size: 20px;
+			display: inline-block;
+			background-color: pink;
+			padding: 6px 24px;
+			cursor: pointer;
+		}
+		.radius{
+			border-radius: 16px;
+		}
+		.large{
+			padding: 10px 28px;
+		}
+		.primary{
+			color:blue;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<div class="btn" :class="{'large':true,'radius':(toggleClass==true)}" @click="getMethodDate">{{message}}</div>
+	<div class="btn" :class="[toggleClass?classB:classC,classA]" @click="getComputedDate">{{message}}</div>
+	<div class="form-group">
+		<input type="checkbox" v-model="toggleClass" id="toggleClass">
+		<label for="toggleClass">toggleClass: {{toggleClass}}</label>
+	</div>
+</div>
+</body>
+<script>
+var app=new Vue({
+	el:"#app",
+	data:{
+		message:"按鈕",
+		toggleClass:true,
+		classA:'large',
+		classB:'primary',
+		classC:'radius'
+	},
+	methods:{
+		getMethodDate:function(){
+			console.log(new Date())
+		},
+		getComputedDate:function(){
+			console.log(this.computedDate)
+		}
+	},
+	computed:{
+		computedDate:function(){
+			return new Date();
+		}
+	}
+})
+
+console.log(app.$data.count)
+</script>
+</html>

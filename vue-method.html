@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Method</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+	<style>
+		.box{
+			width: 200px;
+			height: 30px;
+			border:1px solid #000;
+			text-align: center;
+			line-height: 30px;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<div class="box">{{message}}</div>
+	<div class="outer" @click="outer">
+		<div class="middle" @click="middle">
+			<button type="button" @click.self="inner($event)">Button</button>
+		</div>
+	</div>
+</div>
+<script>
+var app=new Vue({
+	el:"#app",
+	data(){
+		return {
+			message:''
+		}
+	},
+	methods:{
+		outer:function(){
+			this.message='outer'
+		},
+		middle:function(){
+			this.message='middle'
+		},
+		inner:function(event){
+			this.message='inner'
+		}
+	}
+})
+</script>
+</body>
+</html>

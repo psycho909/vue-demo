@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<table>
+		<thead>
+			<tr>
+				<th>Num</th>
+				<th>ID</th>
+				<th>author</th>
+				<th>name</th>
+				<th>price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="(book,i) in books">
+				<td>{{i}}</td>
+				<td>{{book.id}}</td>
+				<td>{{book.author}}</td>
+				<td>{{book.name}}</td>
+				<td>{{book.price}}</td>
+				<td><button @click="delBooks(book)">刪除</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<div id="add-book">
+		<legend>添加书籍</legend>
+		<div class="form-group">
+			<label for="">书名</label>
+			<input type="text" v-model="book.name">
+		</div>
+		<div class="form-group">
+			<label for="">作者</label>
+			<input type="text" v-model="book.author">
+		</div>
+		<div class="form-group">
+			<label for="">價錢</label>
+			<input type="text" v-model="book.price">
+		</div>
+		<button @click="addBook">新增書籍</button>
+	</div>
+</div>
+</body>
+<script>
+var app=new Vue({
+	el:"#app",
+	data:{
+		params:['ID','author','name','price'],
+		book:{
+			id:0,
+			author:'',
+			name:'',
+			price:''
+		},
+		books: [
+	    	{
+	            id: 1,
+	            author: '曹雪芹',
+	            name: '红楼梦',
+	            price: 32.0
+	        }, {
+	            id: 2,
+	            author: '施耐庵',
+	            name: '水浒传',
+	            price: 30.0
+	        }, {
+	            id: 3,
+	            author: '罗贯中',
+	            name: '三国演义',
+	            price: 24.0
+	        }, {
+	            id: 4,
+	            author: '吴承恩',
+	            name: '西游记',
+	            price: 20.0
+	        }
+	    ]
+	},
+	methods:{
+		addBook(){
+			this.book.id=this.books.length+1;
+			this.books.push(this.book)
+			this.book={
+				id:0,
+				author:'',
+				name:'',
+				price:''
+			}
+		},
+		delBook(books){
+			return this.books.splice(books,1);
+		},
+		delBooks(books){
+			this.books=this.books.filter(o=>o.id != books.id)
+		}
+	}
+})
+var books=[
+    	{
+            id: 1,
+            author: '曹雪芹',
+            name: '红楼梦',
+            price: 32.0
+        }, {
+            id: 2,
+            author: '施耐庵',
+            name: '水浒传',
+            price: 30.0
+        }, {
+            id: 3,
+            author: '罗贯中',
+            name: '三国演义',
+            price: 24.0
+        }, {
+            id: 4,
+            author: '吴承恩',
+            name: '西游记',
+            price: 20.0
+        }
+    ]
+</script>
+</html>

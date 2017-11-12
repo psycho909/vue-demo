@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>v-bind,v-bind:class</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
+	<style>
+		.btn{
+			font-size: 20px;
+			display: inline-block;
+			background-color: pink;
+			padding: 6px 24px;
+		}
+		.radius{
+			border-radius: 16px;
+		}
+		.large{
+			padding: 10px 28px;
+		}
+		.primary{
+			color:blue;
+		}
+		.btn{
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<div class="btn" :class="{'large':true,'radius':(toggleClass==true),'classD':true}" @click="fullName">{{message}}</div>
+	<div class="btn" :class="[toggleClass?classB:classC,classA,classD]" @click="updateName">{{message}}</div>
+	<div>{{fullName()}}</div>
+	<div class="form-group">
+		<input type="checkbox" v-model="toggleClass" id="toggleClass">
+		<label for="toggleClass">toggleClass: {{toggleClass}}</label>
+	</div>
+	<parent></parent>
+	<br>
+	<input type="text" v-model="name">
+	<box :myname.sync="name">
+		<div slot="header">Hello Slot Header</div>
+		<div>Hello Slot</div>
+	</box>
+</div>
+</body>
+<script>
+var Child=Vue.extend({
+	template:'<div>Hello Child</div>'
+})
+var Parent=Vue.extend({
+	template:'<div>Hello parent<child></child></div>',
+	components:{
+		'child':Child
+	}
+})
+Vue.component('parent',Parent)
+Vue.component('innerbox',{
+	template:'<div>My innerbox</div>'
+})
+Vue.component('box',{
+	template:`<div>
+		<p>My Box</p>
+		<slot>This is Slot</slot><br>
+		<input type="text" v-model="myname" /><br>
+		<slot name="header">Slot header</slot>
+		<innerbox></innerbox></div>
+	`,
+	props:['myname']
+})
+var app=new Vue({
+	el:"#app",
+	data(){
+		return {
+			name:'Chen',
+			message:"按鈕",
+			toggleClass:true,
+			classA:'large',
+			classB:'primary',
+			classC:'radius',
+			classD:'classD',
+			counter:{
+				dog:0
+			},
+			myname:{
+				'firstName':'chen'
+			}
+		}
+	},
+	created(){
+		this.$set(this.myname,'lastName','gggggg')
+	},
+	methods:{
+		fullName:function(){
+			console.log(this.myname.firstName + ' '+ this.myname.lastName)
+			return this.myname.firstName + ' '+ this.myname.lastName;
+		},
+		updateName:function(){
+			this.$set(this.myname,'lastName','hello')
+			this.$nextTick(function(){
+				console.log(this.myname.lastName == 'hello')
+			})
+		}
+	}
+})
+// Vue.set(app.$data.myname,'lastName','drererwe')
+// console.log(app.$data.myname.lastName)
+// Vue.nextTick(function(){
+// 	Vue.set(app.$data.myname,'lastName','hello')
+// 	console.log(app.$data.myname.lastName == 'hello')
+// })
+</script>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+</head>
+<body>
+<div id="app">
+	<div class="form">
+		<input type="text" v-model="tempName">
+		<button class="btn" @click="setName()">Set</button>
+	</div>
+	<div>{{fullName}}</div>
+	<div>{{firstName}}</div>
+	<div>{{lastName}}</div>
+</div>
+<script>
+var app=new Vue({
+	el:"#app",
+	data(){
+		return {
+			tempName:'',
+			firstName:'Chen',
+			lastName:'Ching'
+		}
+	},
+	computed:{
+		fullName:{
+			get:function(){
+				var vm=this;
+				return vm.firstName+' '+vm.lastName
+			},
+			set:function(newValue){
+				var names=newValue.split(' ')
+				var vm=this;
+				vm.firstName=names[0]
+				vm.lastName=names[names.length-1]
+			}
+		}
+	},
+	methods:{
+		setName:function(){
+			var vm=this;
+			vm.fullName=vm.tempName
+		}
+	}
+})
+</script>
+</body>
+</html>

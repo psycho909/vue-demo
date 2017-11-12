@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>computed</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<div>{{newPrice}}</div>
+	<ul>
+		<li v-for=" item in reversNews">{{item.title}}-{{item.num}}</li>
+	</ul>
+</div>
+
+</body>
+<script>
+var newsList=[
+		{title:'终极时刻的新使者 终极画面《虚幻争霸》试玩品鉴',date:'2017/3/24',num:1},
+		{title:'泰国廉价cosplay天王最新力作 这香克斯面子太大',date:'2017/3/25',num:3},
+		{title:'5月1日之后纯磁条卡还能用 专家建议应积极换卡',date:'2017/3/11',num:4},
+		{title:'《铲子骑士：磨难之灵》评测 它守望了整个FC时代',date:'2017/3/26',num:5},
+		{title:'《辐射4》大玩具 外星激光枪等比例模型开启预购',date:'2017/3/02',num:6}
+	]
+var app=new Vue({
+	el:"#app",
+	data:{
+		price:100,
+		newsList:newsList
+	},
+	computed:{
+		newPrice:function(){
+			return this.price='$'+this.price+'d';
+		},
+		reversNews:function(){
+			return this.newsList.reverse();
+		}
+	}
+})
+
+</script>
+</html>
