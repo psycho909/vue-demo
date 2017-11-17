@@ -3,6 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>component</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	    crossorigin="anonymous">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
 	<style>
 
@@ -11,13 +13,47 @@
 <body>
 <div id="app">
 	<panda></panda>
-</div>
 
-</body>
+	<div class="col mainbody-box">
+		<div class="row mainbody">
+			<template  v-for="game in gameList">
+				<div class="col-12 py-2">
+					<div class="mainbody-title">
+						<span class="bet-content">{{game.name}}</span>
+						<span class="d-none">{{game.number}}</span>
+					</div>
+				</div>
+				<div class="col-6 bet">
+					<span class="bet-content">{{game.name}}</span>
+					<span>{{game.number}}</span>
+				</div>
+				<div class="col-6 bet">
+					<span class="bet-content">{{game.name}}</span>
+					<span>{{game.number}}</span>
+				</div>
+			</template>
+		</div>
+	</div>
+</div>
 <script>
 var city={
 	template:'<div>Hello City</div>'
 }
+Vue.component('lotter-a2',{
+	template:'#lotter-a2',
+	data(){
+		return {
+			gameList:[
+				{name:'前三',number:0},
+				{name:'豹子',number:70},
+				{name:'顺子',number:14},
+				{name:'对子',number:3.2},
+				{name:'半顺',number:2.3},
+				{name:'杂六',number:2.8}
+			]
+		}
+	}
+})
 var pandaComponent={
 	template:`
 	<div>
@@ -33,7 +69,15 @@ var pandaComponent={
 var app=new Vue({
 	el:"#app",
 	data:{
-		message:"TW"
+		message:"TW",
+		gameList:[
+			{name:'前三',number:0},
+			{name:'豹子',number:70},
+			{name:'顺子',number:14},
+			{name:'对子',number:3.2},
+			{name:'半顺',number:2.3},
+			{name:'杂六',number:2.8}
+		]
 	},
 	components:{
 		'panda':pandaComponent
@@ -41,4 +85,5 @@ var app=new Vue({
 })
 
 </script>
+</body>
 </html>
