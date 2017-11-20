@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>component</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.6/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<test name="Color" :list="color"></test>
+		<test name="Animal" :list="animal"></test>
+	</div>
+
+</body>
+<template id="test-child">
+	<div class="test-child">
+		<slot name="slot-content" :item="val" v-for="val in books"></slot>
+	</div>
+</template>
+<template id="test">
+	<div class="test">
+		<div class="name">HEllo --- {{name}}</div>
+		<ul>
+			<li v-for="value in list">{{name}} -- {{value.name}}</li>
+		</ul>
+		<test-child>
+			<template scope="props" slot="slot-content">
+				<div>{{props.item.name}}</div>
+			</template>
+		</test-child>
+	</div>
+</template>
+<script>
+	Vue.component('test-child',{
+		template:'#test-child',
+		data(){
+			return {
+				books:[
+					{name:'AA'},
+					{name:'BB'},
+					{name:'CC'},
+				],
+				langs:[
+					{name:'Eng'},
+					{name:'Jpn'},
+					{name:'tCH'},
+				]
+			}
+		}
+	})
+	Vue.component('test',{
+		template:'#test',
+		props:['name','list','items']
+	})
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			message: "TW",
+			color:[
+				{name:'blue'},
+				{name:'red'},
+				{name:'green'},
+			],
+			animal:[
+				{name:'dog'},
+				{name:'cat'},
+				{name:'pig'},
+			]
+		}
+	})
+</script>
+
+</html>

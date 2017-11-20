@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>v-bind,v-bind:class</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js
+	"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
+	<style>
+		.list-group-item{
+			list-style: none;
+			display: inline-block;
+			border: 1px solid #ddd;
+			background-color: #eee;
+			padding: 6px 18px;
+			border-radius:8px;
+			cursor: pointer;
+		}
+		.list-group-item.active{
+			background-color: #333;
+			color:#fff;
+		}
+		.list-group-item .sub{
+			color:red;
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+<div id="app">
+	<ul class="list-group">
+		<li @click="listClick(0)" :class="{active:isActive[0]}" class="list-group-item" ref="list">
+			<span class="title">BTN</span><span class="sub">A</span>
+		</li>
+		<li @click="listClick(1)" :class="{active:isActive[1]}" class="list-group-item" ref="list">
+			<span class="title">BTN</span><span class="sub">B</span>
+		</li>
+		<li @click="listClick(2)" :class="{active:isActive[2]}" class="list-group-item" ref="list">
+			<span class="title">BTN</span><span class="sub">C</span>
+		</li>
+	</ul>
+	<div>{{isActive}}--{{toggleCC}}</div>
+</div>
+</body>
+<script>
+var app=new Vue({
+	el:"#app",
+	data:{
+		isActive:[false,false,false],
+		step:1,
+		toggleCC:true
+	},
+	methods:{
+		listClick:function(e){
+			this.isActive[e]=!this.isActive[e]
+			this.toggleCC=!this.toggleCC
+			console.log(this.isActive[e])
+		}
+	}
+})
+</script>
+</html>
