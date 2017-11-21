@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>component</title>
@@ -10,7 +11,44 @@
 
 	</style>
 </head>
+
 <body>
+<<<<<<< HEAD
+	<div id="app">
+		<testa name="CHing"></testa>
+		<testb name="Chen"></testb>
+		<panda></panda>
+	</div>
+
+</body>
+<template id="test">
+	<div class="test">HEllo --- {{name}}</div>
+</template>
+<script>
+	var myVue = Vue.extend({
+		template: '<div>{{ name }} - {{ age }} - {{ mail }}</div>',
+		data: function () {
+			return {
+				name: 'malun',
+				age: '19',
+				mail: 'flydragonml@gmail.com'
+			};
+		}
+	});
+	Vue.component('testa', {
+		template: '#test',
+		props: ['name']
+	})
+	Vue.component('testb', {
+		template: '#test',
+		props: ['name']
+	})
+	var city = {
+		template: '<div>Hello City</div>'
+	}
+	var pandaComponent = {
+		template: `
+=======
 <div id="app">
 	<div class="container">
 		<lotter name="Hello" ></lotter>
@@ -46,6 +84,24 @@ Vue.component('lotter',{
 		}
 	}
 })
+<<<<<<< HEAD
+=======
+var pandaComponent={
+	template:`
+>>>>>>> 57704b622fbb4b4eac5c0f93a03588556780d2b2
+	<div>
+		<div>Hello Panda</div>
+		<city></city>
+	</div>
+	`,
+		components: {
+			'city': city
+		}
+	}
+<<<<<<< HEAD
+=======
+}
+>>>>>>> 986769dfe39268d8b7c95eaa21279a7763e8e500
 
 var app=new Vue({
 	el:"#app",
@@ -53,7 +109,21 @@ var app=new Vue({
 		message:"TW"
 	}
 })
+>>>>>>> 57704b622fbb4b4eac5c0f93a03588556780d2b2
 
+	var app = new Vue({
+		el: "#app",
+		data: {
+			message: "TW"
+		},
+		components: {
+			'panda': pandaComponent
+		}
+	})
 </script>
+<<<<<<< HEAD
+
+=======
 </body>
+>>>>>>> 57704b622fbb4b4eac5c0f93a03588556780d2b2
 </html>

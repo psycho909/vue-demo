@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul>
+            <li @click="changeComponents" data-tabs="home">home</li>
+            <li @click="changeComponents" data-tabs="posts">posts</li>
+            <li @click="changeComponents" data-tabs="archive">archive</li>
+        </ul>
+        <component :is="currentView"></component>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                currentView:'home'
+            },
+            components: {
+                home: {
+                    template: '<div>home</div>'
+                },
+                posts: {
+                    template: '<div>posts</div>'
+                },
+                archive: {
+                    template: '<div>archive</div>'
+                }
+            },
+            methods:{
+                changeComponents:function(){
+                    this.currentView=event.target.getAttribute('data-tabs')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

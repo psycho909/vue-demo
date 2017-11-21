@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>component</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.6/vue.min.js"></script>
+	<style>
+		.active{
+			color:red;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div v-for="item in items">
+		    <toggle-list-item :item="item"></toggle-list-item>
+		  </div>
+		<test name="Color" :list="color"></test>
+		<test name="Animal" :list="animal"></test>
+	</div>
+
+</body>
+<template id="list-item">
+  <div>
+    <div>
+      {{item.text}}
+    </div>
+
+    <button @click="toggle()">show</button>
+
+    <div v-show="isActive" class="item-desc">
+      {{item.desc}}
+    </div>
+
+  </div>
+</template>
+<template id="test-child">
+	<div class="test-child">
+		<slot name="slot-content" :item="val" v-for="val in books"></slot>
+	</div>
+</template>
+<template id="test">
+	<div class="test">
+		<div class="name">HEllo --- {{name}}</div>
+		<ul>
+			<li v-for="value in list" @click="liClick()" :class="{active:isActive}">{{name}} -- {{value.name}}</li>
+		</ul>
+		<test-child>
+			<template scope="props" slot="slot-content">
+				<div>{{props.item.name}}</div>
+			</template>
+		</test-child>
+	</div>
+</template>
+<script>
+	Vue.component('toggle-list-item', {
+  template: '#list-item',
+  props: ['item'],
+  methods: {
+    toggle() {
+      this.isActive = !this.isActive;
+    }
+  },
+  data() {
+    return {
+      isActive: false
+    }
+  },
+})
+	Vue.component('test-child',{
+		template:'#test-child',
+		data(){
+			return {
+				books:[
+					{name:'AA'},
+					{name:'BB'},
+					{name:'CC'},
+				],
+				langs:[
+					{name:'Eng'},
+					{name:'Jpn'},
+					{name:'tCH'},
+				]
+			}
+		}
+	})
+	Vue.component('test',{
+		template:'#test',
+		props:['name','list','items'],
+		data(){
+			return {
+				isActive:false
+			}
+		},
+		methods:{
+			liClick:function(){
+				this.isActive=!this.isActive
+			}
+		}
+	})
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			message: "TW",
+			color:[
+				{name:'blue'},
+				{name:'red'},
+				{name:'green'},
+			],
+			animal:[
+				{name:'dog'},
+				{name:'cat'},
+				{name:'pig'},
+			],
+			items: [{
+      text: 'foo',
+      desc: 'foo desc'
+    }, {
+      text: 'bar',
+      desc: 'bar desc'
+    }, {
+      text: 'baz',
+      desc: 'baz desc'
+    }]
+		}
+	})
+</script>
+
+</html>
