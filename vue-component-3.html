@@ -17,8 +17,9 @@
 		<div v-for="item in items">
 			<toggle-list-item :item="item"></toggle-list-item>
 		</div>
-		<test name="Color" :list="color"></test>
-		<test name="Animal" :list="animal"></test>
+		<div v-for="item in color" >
+			<test name="Color" :item="item"></test>
+		</div>
 	</div>
 
 </body>
@@ -36,23 +37,11 @@
 
 	</div>
 </template>
-<template id="test-child">
-	<div class="test-child">
-		<slot name="slot-content" :item="val" v-for="val in books"></slot>
-	</div>
-</template>
 <template id="test">
-	<div class="test">
-		<div class="name">HEllo --- {{name}}</div>
-		<ul>
-			<li v-for="value in list" @click="liClick()" :class="{active:isActive}">{{name}} -- {{value.name}}</li>
-		</ul>
-		<test-child>
-			<template scope="props" slot="slot-content">
-				<div>{{props.item.name}}</div>
-			</template>
-		</test-child>
-	</div>
+	<ul>
+		<li @click="liClick()" :class="{active:isActive}">{{name}} -- {{item.name}}</li>
+		<li @click="liClick()" :class="{active:isActive}">{{name}} -- {{item.code}}</li>
+	</ul>
 </template>
 <script>
 	Vue.component('toggle-list-item', {
@@ -69,36 +58,9 @@
 			}
 		},
 	})
-	Vue.component('test-child', {
-		template: '#test-child',
-		data() {
-			return {
-				books: [{
-						name: 'AA'
-					},
-					{
-						name: 'BB'
-					},
-					{
-						name: 'CC'
-					},
-				],
-				langs: [{
-						name: 'Eng'
-					},
-					{
-						name: 'Jpn'
-					},
-					{
-						name: 'tCH'
-					},
-				]
-			}
-		}
-	})
 	Vue.component('test', {
 		template: '#test',
-		props: ['name', 'list', 'items'],
+		props: ['name', 'list', 'item'],
 		data() {
 			return {
 				isActive: false
@@ -116,13 +78,13 @@
 		data: {
 			message: "TW",
 			color: [{
-					name: 'blue'
+					name: 'blue',code:'#999'
 				},
 				{
-					name: 'red'
+					name: 'red',code:'#333'
 				},
 				{
-					name: 'green'
+					name: 'green',code:'#444'
 				},
 			],
 			animal: [{
