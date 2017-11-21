@@ -12,35 +12,27 @@
 </head>
 <body>
 <div id="app">
-	<panda></panda>
-
-	<div class="col mainbody-box">
-		<div class="row mainbody">
-			<template  v-for="game in gameList">
-				<div class="col-12 py-2">
-					<div class="mainbody-title">
-						<span class="bet-content">{{game.name}}</span>
-						<span class="d-none">{{game.number}}</span>
-					</div>
-				</div>
-				<div class="col-6 bet">
-					<span class="bet-content">{{game.name}}</span>
-					<span>{{game.number}}</span>
-				</div>
-				<div class="col-6 bet">
-					<span class="bet-content">{{game.name}}</span>
-					<span>{{game.number}}</span>
-				</div>
-			</template>
+	<div class="container">
+		<lotter name="Hello" ></lotter>
+	</div>
+	
+</div>
+<template id="lotter">
+	<div class="row">
+		<h1 class="col-12">{{name}}</h1>
+		<div class="col-6 bet" v-for="game in gameList">
+			<span class="bet-content">{{game.name}}</span>
+			<span>{{game.number}}</span>
 		</div>
 	</div>
-</div>
+</template>
 <script>
-var city={
-	template:'<div>Hello City</div>'
-}
-Vue.component('lotter-a2',{
-	template:'#lotter-a2',
+Vue.component('hello',{
+	template:'<div>hello</div>'
+})
+Vue.component('lotter',{
+	template:'#lotter',
+	props:['name'],
 	data(){
 		return {
 			gameList:[
@@ -54,33 +46,11 @@ Vue.component('lotter-a2',{
 		}
 	}
 })
-var pandaComponent={
-	template:`
-	<div>
-		<div>Hello Panda</div>
-		<city></city>
-	</div>
-	`,
-	components:{
-		'city':city
-	}
-}
 
 var app=new Vue({
 	el:"#app",
 	data:{
-		message:"TW",
-		gameList:[
-			{name:'前三',number:0},
-			{name:'豹子',number:70},
-			{name:'顺子',number:14},
-			{name:'对子',number:3.2},
-			{name:'半顺',number:2.3},
-			{name:'杂六',number:2.8}
-		]
-	},
-	components:{
-		'panda':pandaComponent
+		message:"TW"
 	}
 })
 

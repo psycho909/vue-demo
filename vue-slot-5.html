@@ -12,11 +12,12 @@
 </head>
 <body>
 <div id="app">
-	<my-list title="Shapes" :items="colors">
+	<my-list title="Colors" :items="colors">
 		<template scope="colors" slot="slot-subject">
 			<li>{{colors.item.name}} <small>({{colors.item.sides}} sides)</small></li>
 		</template>
 	</my-list>
+	
 	<my-list title="Games" :items="games">
 		<template scope="games" slot="slot-subject">
 			<li>{{games.item.name}} <small>({{games.item.sides}} sides)</small></li>
@@ -24,21 +25,10 @@
 	</my-list>
 </div>
 
-<template id="list">
-	<article>
-		<slot name="slot-shapes" :item="val" v-for="val in shapes"></slot>
-	</article>
-</template>
 
 <template id="my-list">
 	<div class="my-list">
 		<div class="title" :class="titles">{{title}}</div>
-		<list>
-			<template scope="props" slot="slot-shapes">
-				<li>{{props.item.name}} <small>({{props.item.sides}} sides)</small></li>
-			</template>
-		</list>
-		<br/>
 		<div class="list">
 			<div class="list-item">
 				<slot name="slot-subject" :item="item" v-for="item in items"></slot>
