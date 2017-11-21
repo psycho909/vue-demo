@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>component</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.6/vue.min.js"></script>
+	<style>
+		.active {
+			color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div v-for="(item,num) in color" >
+			<test name="Color" :item="item" :num="num"></test>
+		</div>
+		<div v-for="(item,num) in animal" >
+			<test name="Color" :item="item" :num="num"></test>
+		</div>
+	</div>
+
+</body>
+<template id="test">
+	<ul>
+		<li @click="liClick()" :class="{active:isActive}">{{name}}-{{count}}-{{item.name}}-{{item.code}}</li>
+	</ul>
+</template>
+<script>
+	Vue.component('test', {
+		template: '#test',
+		props: ['name', 'num', 'item'],
+		data() {
+			return {
+				isActive: false,
+				count:0
+			}
+		},
+		methods: {
+			liClick: function () {
+				this.isActive = !this.isActive
+				this.count++;
+			}
+		}
+	})
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			message: "TW",
+			color: [
+				{name: 'blue',code:'#999'},
+				{name: 'red',code:'#333'},
+				{name: 'green',code:'#444'},
+			],
+			animal: [
+				{name: 'dog'},
+				{name: 'cat'},
+				{name: 'pig'},
+			]
+		}
+	})
+</script>
+
+</html>
