@@ -5,20 +5,39 @@
 	<meta charset="UTF-8">
 	<title>component</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.6/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<style>
 		.active {
 			color: red;
+		}
+
+		.btn {
+			padding: 6px 12px;
+			display: inline-block;
+			border: 1px solid #ddd;
+			border-radius: 6px;
+			background-color: #888;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		.sub {
+			color: gold;
 		}
 	</style>
 </head>
 
 <body>
 	<div id="app">
-		<div v-for="(item,num) in color" >
+		<div v-for="(item,num) in color">
 			<test name="Color" :item="item" :num="num"></test>
 		</div>
-		<div v-for="(item,num) in animal" >
+		<div v-for="(item,num) in animal">
 			<test name="Color" :item="item" :num="num"></test>
+		</div>
+		<div class="btn" @click="btnClick">
+			<span class="button">Button</span>
+			<span class="ooo">O</span>
 		</div>
 	</div>
 
@@ -35,7 +54,7 @@
 		data() {
 			return {
 				isActive: false,
-				count:0
+				count: 0
 			}
 		},
 		methods: {
@@ -50,16 +69,34 @@
 		el: "#app",
 		data: {
 			message: "TW",
-			color: [
-				{name: 'blue',code:'#999'},
-				{name: 'red',code:'#333'},
-				{name: 'green',code:'#444'},
+			color: [{
+					name: 'blue',
+					code: '#999'
+				},
+				{
+					name: 'red',
+					code: '#333'
+				},
+				{
+					name: 'green',
+					code: '#444'
+				},
 			],
-			animal: [
-				{name: 'dog'},
-				{name: 'cat'},
-				{name: 'pig'},
+			animal: [{
+					name: 'dog'
+				},
+				{
+					name: 'cat'
+				},
+				{
+					name: 'pig'
+				},
 			]
+		},
+		methods: {
+			btnClick: function () {
+				alert($(event.currentTarget).text())
+			}
 		}
 	})
 </script>
