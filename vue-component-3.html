@@ -14,11 +14,11 @@
 
 <body>
 	<div id="app">
-		<div v-for="item in items">
-			<toggle-list-item :item="item"></toggle-list-item>
+		<div v-for="(item,num) in items">
+			<toggle-list-item :item="item" :num="num"></toggle-list-item>
 		</div>
-		<div v-for="item in color" >
-			<test name="Color" :item="item"></test>
+		<div v-for="(item,num) in color" >
+			<test name="Color" :item="item" :num="num"></test>
 		</div>
 	</div>
 
@@ -39,8 +39,8 @@
 </template>
 <template id="test">
 	<ul>
-		<li @click="liClick()" :class="{active:isActive}">{{name}} -- {{item.name}}</li>
-		<li @click="liClick()" :class="{active:isActive}">{{name}} -- {{item.code}}</li>
+		<li @click="liClick()" :class="{active:isActive}">{{name}}-{{num}} -- {{item.name}}</li>
+		<li @click="liClick()" :class="{active:isActive}">{{name}}-{{num}} -- {{item.code}}</li>
 	</ul>
 </template>
 <script>
@@ -60,7 +60,7 @@
 	})
 	Vue.component('test', {
 		template: '#test',
-		props: ['name', 'list', 'item'],
+		props: ['name', 'num', 'item'],
 		data() {
 			return {
 				isActive: false

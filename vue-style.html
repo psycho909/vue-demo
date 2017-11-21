@@ -61,10 +61,11 @@
 
 <body>
 	<div id="app">
+		<div class="box" :class="[pink,{blue:isActive}]">213</div>
 		<div class="box" :style="{backgroundColor:color}"></div>
 		<div class="box" :style="[styles,moreStyles]"></div>
 		<div class="box" :class="[pink]" :style="[pinks]"></div>
-		<div v-for="shape in shapes" :class="[shape.shape,shape.direction?shape.direction:'']" class="shape"></div>
+		<div v-for="(shape,i) in shapes" :class="[shape.shape,shape.direction?shape.direction+i:'']" class="shape"></div>
 	</div>
 	<script>
 
@@ -72,6 +73,7 @@
 			el: "#app",
 			data() {
 				return {
+					isActive:true,
 					color: 'blue',
 					pink:'pink',
 					pinks:{
