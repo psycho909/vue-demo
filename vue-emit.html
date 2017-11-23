@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>$emit</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
+	<style>
+
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<lotter-a0 v-on:bet_active="get_bets_length"></lotter-a0>
+		<myson v-on:son_method="father_method"></myson>
+		<myson v-on:son_method="father_method"></myson>
+	</div>
+</body>
+<script>
+	Vue.component('lotter-a0',{
+		template:`'<button v-on:click="bet_active">Lotter</button>',`,
+		data(){
+			return {
+				isActive:false
+			}
+		},
+		methods:{
+			bet_active:function(){
+				this.isActive=!this.isActive;
+				var _self=this;
+				this.$emit('bet_active',_self.isActive)
+			}
+		}
+	})
+	Vue.component('myson', {
+		template: '<button v-on:click="son_method">子按钮</button>',
+		data(){
+			return {
+				counter:0,
+				active:false
+			}
+		},
+		methods: {
+			// 點擊時觸發事件
+			son_method: function () {
+				this.active=!this.active;
+				if(this.active){
+					this.counter += 1;
+				}else{
+					this.counter -= 1;
+				}
+				//必須跟模板中的v-on配合使用
+				this.$emit('son_method',this.counter,this.active);
+				console.log('counter : '+this.counter)
+			}
+		},
+	});
+	new Vue({
+		el: "#app",
+		data: {
+			current: 0
+		},
+		methods: {
+			father_method: function (counter,active) {
+				if(active){
+					this.current=this.current+1
+				}else{
+					this.current=this.current-1
+				}
+				console.log('current : '+this.current+active);
+				console.log('test')
+			},
+			get_bets_length:function(isActive){
+				console.log(2)
+			}
+		}
+	});
+</script>
+
+</html>

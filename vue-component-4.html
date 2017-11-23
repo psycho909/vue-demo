@@ -35,7 +35,7 @@
 		<div v-for="(item,num) in animal">
 			<test name="Color" :item="item" :num="num"></test>
 		</div>
-		<div class="btn" @click="btnClick">
+		<div class="btn" @click="btnClick($event)">
 			<span class="button">Button</span>
 			<span class="ooo">O</span>
 		</div>
@@ -94,7 +94,7 @@
 			]
 		},
 		methods: {
-			btnClick: function () {
+			btnClick: function (event) {
 				alert($(event.currentTarget).text())
 			}
 		}

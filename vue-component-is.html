@@ -6,6 +6,12 @@
 	<title>component</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
 	<style>
+		.fade-enter-active, .fade-leave-active {
+	transition: opacity .5s
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active 在低于版本 2.1.8 中 */ {
+	opacity: 0
+  }
 	</style>
 </head>
 
@@ -23,7 +29,9 @@
 			<input type="radio" name="drive" id="car" value="car" v-model="currentView">
 			<label for="car">Car</label>
 		</div>
-		<mycomponent :is="currentView"></mycomponent>
+		<transition name="fade">
+			<mycomponent :is="currentView"></mycomponent>
+		</transition>
 	</div>
 </body>
 <script>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>component</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.8/vue.min.js"></script>
+	<style>
+		.fade-enter-active,
+		.fade-leave-active {
+			transition: opacity .5s
+		}
+
+		.fade-enter,
+		.fade-leave-to
+		{
+			opacity: 0
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div class="form-group">
+			<input type="radio" name="drive" id="bus" value="bus" v-model="currentView">
+			<label for="bus">Bus</label>
+		</div>
+		<div class="form-group">
+			<input type="radio" name="drive" id="bike" value="bike" v-model="currentView">
+			<label for="bike">Bike</label>
+		</div>
+		<div class="form-group">
+			<input type="radio" name="drive" id="car" value="car" v-model="currentView">
+			<label for="car">Car</label>
+		</div>
+		<div>{{currentView}}</div>
+		<buss v-if="currentView == 'bus'">
+			<h3 slot="title">Hello bus</h3>
+		</buss>
+		<bikee v-if="currentView == 'bike'">
+			<h3 slot="title">Hello bike</h3>
+		</bikee>
+		<carr v-if="currentView == 'car'">
+			<h3 slot="title">Hello car</h3>
+		</carr>
+	</div>
+	<transition-group name="fade" tag="div">
+		<template id="buss">
+			<div>
+				<slot name="title"></slot>
+				<ul>
+					<li>bus 1</li>
+					<li>bus 2</li>
+					<li>bus 3</li>
+				</ul>
+			</div>
+		</template>
+	</transition-group>
+	<transition-group name="fade" tag="div">
+		<template id="bikee">
+			<div>
+				<slot name="title"></slot>
+				<ul>
+					<li>bikee 2</li>
+					<li>bikee 2</li>
+					<li>bikee 3</li>
+				</ul>
+			</div>
+		</template>
+	</transition-group>
+	<transition-group name="fade" tag="div">
+		<template id="carr">
+			<div>
+				<slot name="title"></slot>
+				<ul>
+					<li>carr 1</li>
+					<li>carr 2</li>
+					<li>carr 3</li>
+				</ul>
+			</div>
+		</template>
+	</transition-group>
+</body>
+<script>
+	Vue.component('buss', {
+		template: '#buss',
+	})
+	Vue.component('bikee', {
+		template: '#bikee',
+	})
+	Vue.component('carr', {
+		template: '#carr',
+	})
+	new Vue({
+		el: "#app",
+		data: {
+			currentView: 'bus'
+		}
+	});
+</script>
+
+</html>
