@@ -148,19 +148,10 @@
 		data: {
 			addText: '',
 			prolist: [
-				{
-					name: "HTML5",
-					status: false
-				},{
-					name: "CSS3",
-					status: false
-				},{
-					name: "vue",
-					status: false
-				},{
-					name: "react",
-					status: false
-				}
+				{name: "HTML5",status: false},
+				{name: "CSS3",status: false},
+				{name: "vue",status: false},
+				{name: "react",status: false}
 			],
 			newList: [],
 			curIndex:'',
@@ -184,19 +175,9 @@
 			chooseList(type) {
 				this.curType=type;
 				switch (type) {
-					case 1:
-						this.newList = this.prolist;
-						break;
-					case 2:
-						this.newList = this.prolist.filter(function (item) {
-							return item.statuse
-						});
-						break;
-					case 3:
-						this.newList = this.prolist.filter(function (item) {
-							return !item.statuse
-						});
-						break;
+					case 1:this.newList = this.prolist;break;
+					case 2:this.newList = this.prolist.filter(function (item) {return item.status});break;
+					case 3:this.newList = this.prolist.filter(function (item) {return !item.status});break;
 				}
 			},
 			changeType(index){
