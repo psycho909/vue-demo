@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>component</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.6/vue.min.js"></script>
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+	<style>
+		.active {
+			color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<ul>
+			<li v-for="v in path"><router-link :to="v.url">{{v.name}}</router-link></li>
+		</ul>
+    	<router-view></router-view>
+	</div>
+
+</body>
+<script>
+	var foo=Vue.extend({
+		template:`<div>foo</div>`,
+		props:['name']
+	})
+	var bar=Vue.extend({
+		template:`<div>bar</div>`
+	})
+	var routes=[
+		{path:'/foo',component:foo},
+		{path:'/bar',component:bar},
+	]
+	var router=new VueRouter({
+		routes
+	})
+	var app = new Vue({
+		el: "#app",
+		router,
+		data: {
+			path:[
+				{url:'/foo',name:'Foo'},
+				{url:'/bar',name:'Bar'},
+			]
+		}
+	})
+</script>
+
+</html>

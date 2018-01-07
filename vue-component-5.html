@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>component</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.6/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style>
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<div>123</div>
+		<ffather :name="chen"></ffather>
+	</div>
+
+</body>
+<template id="ffather">
+	<div class="row">
+		<template v-for="value in name">
+			<father :value="value"></father>
+		</template>
+	</div>
+</template>
+<template id="father">
+    <li>{{value.name}}</li>
+</template>
+<script>
+	Vue.component('ffather',{
+		template:"#ffather",
+		props:['name']
+	})
+	Vue.component('father',{
+		template:"#father",
+		props:['name','value']
+	})
+
+	var app = new Vue({
+		el: "#app",
+		data: {
+			'chen':[
+				{name:'chen'},
+				{name:'ching'},
+				{name:'yang'},
+			]
+		},
+	})
+</script>
+
+</html>

@@ -14,17 +14,11 @@
 <div id="app">
 	<my-list title="Colors" :items="colors">
 		<template scope="colors" slot="slot-subject">
-			<li>{{colors.item.name}} <small>({{colors.item.sides}} sides)</small></li>
-		</template>
-	</my-list>
-	
-	<my-list title="Games" :items="games">
-		<template scope="games" slot="slot-subject">
-			<li>{{games.item.name}} <small>({{games.item.sides}} sides)</small></li>
+			<li>{{colors.item.name}}</li>
+			<li>({{colors.item.sides}} sides)</li>
 		</template>
 	</my-list>
 </div>
-
 
 <template id="my-list">
 	<div class="my-list">
