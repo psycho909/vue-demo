@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.2.1/vue-router.min.js"></script>
+
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<div>{{msg}}</div>
+	<my-component></my-component>
+</div>
+
+</body>
+<script>
+Vue.component('my-component',{
+	render:function(createElement){
+		return createElement(
+			'div',{},
+			[
+				createElement('p','Hello Vue 2!')
+			]
+		)
+	}
+})
+var vm = new Vue({
+	el:'#app',
+	data: {
+		msg: 'Hello Vus.js'
+	}
+});
+
+</script>
+</html>

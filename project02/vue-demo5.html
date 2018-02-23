@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Computed | Watch</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.2.1/vue-router.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<div>computed {{fullName}}</div>
+	<div>watch {{fullNameWatch}}</div>
+</div>
+
+</body>
+<script>
+var vm = new Vue({
+	el:'#app',
+	data: {
+		firstName:'Chen',
+		lastName:'Ching',
+		fullNameWatch:'Chen Ching',
+	},
+	computed:{
+		fullName:function(){
+			return this.firstName+' '+this.lastName;
+		}
+	},
+	watch:{
+		firstName:function(val){
+			this.fullNameWatch=this.firstName+' '+this.lastName;
+		},
+		lastName:function(val){
+			this.fullNameWatch=this.firstName+' '+this.lastName;
+		}
+	}
+});
+
+</script>
+</html>

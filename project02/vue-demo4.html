@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Computed | Filter</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.2.1/vue-router.min.js"></script>
+
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<div>{{msg}}</div>
+	<div>{{reverseMsg}}</div>
+	<div>{{price | filterPrice(0.8) | filterFixed }}</div>
+</div>
+
+</body>
+<script>
+var vm = new Vue({
+	el:'#app',
+	data: {
+		msg: 'Hello Vus.js',
+		price:2000
+	},
+	computed:{
+		reverseMsg:function(){
+			return this.msg.split('').reverse().join('');
+		}
+	},
+	filters:{
+		filterFixed:function(price){
+			return '$'+price.toFixed(2)
+		},
+		filterPrice:function(price,arg){
+			return price*arg;
+		}
+	}
+});
+
+</script>
+</html>

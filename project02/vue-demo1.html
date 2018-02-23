@@ -5,8 +5,7 @@
 	<title>Document</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.3/vue.min.js"></script>
-	<script src="header.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.2.1/vue-router.min.js"></script>
 
@@ -26,53 +25,74 @@
 </head>
 <body>
 <div id="app">
-	<router-view class="view one" name="header"></router-view>
-  <h1>Named Views</h1>
-  <ul>
-    <li>
-      <router-link to="/">/</router-link>
-      <router-link to="/about">/about</router-link>
-    </li>
-  </ul>
-  <page></page>
-  <router-view class="view two" name="a"></router-view>
-  <router-view class="view three" name="b"></router-view>
-  <router-view class="view one" name="footer"></router-view>
+	<div>{{msg}}</div>
+	<div :title="title">{{title}}</div>
+	<ul>
+		<li v-for="todo in todos">{{todo.text}}</li>
+	</ul>
+	<button @click="checkMsg">check</button>
+	<input type="text" v-model="msg">
+	<ol>
+		<todo-item v-for="item in todos" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+	</ol>
+	<message v-bind:msg="msg"></message>
+	<todo-component v-bind:text="todo.text"></todo-component>
+	<wrap :items="items">
+		<li slot="item" class="props-item" slot-scope="props">{{props.value}}</li>
+	</wrap>
 </div>
-</body>
-<script src="main.js"></script>
-<script>
 
-// const routes = [
-//   { path: '/', component: home},
-//   { path: '/news', component: news},
-//   { path: '/about', component: about},
-// ]
-// const router = new VueRouter({
-//   routes:[
-// 	  { path: '/',
-// 	  	components: {
-// 	  		header: navbarB,
-// 	        a: Bar,
-// 	        b: Baz,
-// 	        footer:footerB
-// 	  	}
-// 	  },{
-// 	  	path:'/about',
-// 	  	components:{
-// 	  		header: navbarB,
-// 	        a: contents,
-// 	        footer:footerB
-// 	  	}
-// 	  }
-// 	]
-// })
-// var app=new Vue({
-// 	el:"#app",
-// 	router:router,
-// 	data:{
-// 		message:""
-// 	}
-// })
+<template id="wrap">
+	<div>
+		<h2>Wrap title</h2>
+		<slot name="item" v-for="item in items" :value="item.name">none</slot>
+	</div>
+</template>
+<template id="wrap-header">
+	<div>Wrap-Header</div>
+</template>
+</body>
+<script>
+	Vue.component('wrap',{
+		props:['items'],
+		template:'#wrap',
+	})
+	Vue.component('wrap-header',{
+		template:'#wrap-header'
+	})
+	Vue.component('todo-item',{
+		props:['todo'],
+		template:'<li>{{todo.text}}</li>'
+	})
+	Vue.component('message',{
+		props:['msg'],
+		template:'<div>Component : {{msg}}</div>'
+	})
+	Vue.component('todo-component',{
+		props:['text'],
+		template:'<div>{{text}}</div>'
+	})
+	var app=new Vue({
+		el:'#app',
+		data:{
+			msg:'Hello',
+			title:'Demo01',
+			todos: [
+				{id:0 ,text: 'Learn JavaScript' },
+				{id:1 ,text: 'Learn Vue' },
+				{id:2 ,text: 'Build something awesome' }
+			],
+			todo:{text:'Learn Vue',isComplete:true},
+			items:[
+				{name:'Tom',text:"AA"},
+				{name:'John',text:"BB"}
+			]
+		},
+		methods:{
+			checkMsg:function(){
+				this.msg=this.msg.toUpperCase();
+			}
+		}
+	})
 </script>
 </html>
