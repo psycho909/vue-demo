@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-model</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <style>
+        .view{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            cursor: pointer;
+        }
+        .isActive{
+            color:red;
+        }
+        .active{
+            border:1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="view" v-on:click="add"></div>
+        <div>{{i}}</div>
+        <div>{{strFn}}</div>
+    </div>
+    <script>
+        var app=new Vue({
+            el:'#app',
+            data:{
+                message:'Hello',
+                i:0
+            },
+            methods:{
+                add:function(){
+                    this.i++;
+                }
+            },
+            computed:{
+                strFn:function(){
+                    if(this.i <= 5){
+                        return '....!!'
+                    }else if(this.i <= 10){
+                        return 'i<=10'
+                    }else{
+                        return 'Good'
+                    }
+                }
+            },
+            watch:{
+                i:function(newValue,oldValue){
+                    console.log(newValue)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
