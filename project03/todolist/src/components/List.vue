@@ -3,8 +3,9 @@
         <h1 class="title">{{title}}</h1>
         <input type="text" v-model="newStr" v-on:keyup.enter="addData">
         <ul>
-            <li v-for="item in items" v-bind:key="item.id" v-bind:class="{finsh:item.isFinished}" v-on:click="toggleFinish(item)">
-                {{item.text}}
+            <li v-for="(item,index) in items" v-bind:key="item.id" v-bind:class="{finsh:item.isFinished}" v-on:click="toggleFinish(item)">
+                <span>{{item.text}}</span>
+                <button class="del" v-on:click="delData(index)">X</button>
             </li>
         </ul>
     </div>
@@ -41,6 +42,10 @@
                 this.$emit("myMsg",this.newStr)
                 
                 this.newStr='';
+            },
+            delData:function(index){
+                this.items.splice(index,1)
+                //console.log(index)
             }
         }
     }

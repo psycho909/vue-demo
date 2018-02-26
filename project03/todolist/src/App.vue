@@ -2,7 +2,6 @@
   <div id="app">
     <!-- 父組件向子組件傳參 -->
     <HeaderView v-bind:msg="title"></HeaderView>
-    <img src="./assets/logo.png">
 
     <!-- 子組件向父組件傳參 -->
     <!-- 在父組件當中做一個事件的綁定 -->
@@ -27,7 +26,7 @@ export default {
   },
   data() {
     return {
-      title:'Vue入門學習',
+      title:'XXXX',
       msg:''
     }
   },
