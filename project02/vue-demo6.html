@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+        }
+        .isRed{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box" v-bind:class=['isRed']>{{message}}</div>
+        <ol>
+            <todo-item v-for="item in groceryList" v-bind:todos="item"></todo-item>
+            <todo-list v-for="item in groceryList" v-bind:todos="item"></todo-list>
+        </ol>
+    </div>
+    <template id="todo-item">
+        <li>{{todos.text}}</li>
+    </template>
+    <script>
+        Vue.component('todo-item',{
+            props:['todos'],
+            template:'#todo-item'
+        })
+        var app=new Vue({
+            el:'#app',
+            components:{
+                "todo-list":{
+                    props:['todos'],
+                    template:'#todo-item'
+                }
+            },
+            data:{
+                message:'Hello',
+                isRed:true,
+                groceryList: [
+                    { id: 0, text: 'Vegetables' },
+                    { id: 1, text: 'Cheese' },
+                    { id: 2, text: 'Whatever else humans are supposed to eat' }
+                ]
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+    <style>
+        #app {
+            text-align: center;
+        }
+
+        .ht-dropdown {
+            display: inline-block;
+        }
+        .ht-dropdown-status {
+            border: 1px solid #000;
+            padding: 8px 8px;
+            position: relative;
+            display: inline-block;
+            background-color: #fff;
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.65), rgba(0, 0, 0, 0.03));
+            border-radius: 2px;
+            border: 1px solid #e6e6e6;
+            cursor: pointer;
+        }
+
+        .ht-dropdown-options {
+            width: calc(100% - 2 * 8px);
+            border: 1px solid #000;
+            padding: 5px 8px;
+            position: absolute;
+            top: 33px;
+            left: -1px;
+            background: #fff;
+            border-radius: 2px;
+            border: 1px solid #e6e6e6;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, .2);
+        }
+
+        .ht-dropdown-option {
+            padding: 4px;
+            text-align: left;
+
+        }
+
+        .ht-dropdown-option:hover {
+            background: #f7f7f7;
+            text-decoration: none;
+        }
+
+        .error-msg {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <ht-dropdown v-bind:status="initStatus" v-bind:options="htOptions"></ht-dropdown>
+    </div>
+    <template id="ht-dropdown">
+        <div class="ht-dropdown">
+            <div class="ht-dropdown-status">
+                <p class="ht-dropdown-status-text">
+                    {{statusText}}
+                </p>
+            </div>
+            <p class="error-msg">{{errorMsg}}</p>
+        </div>
+    </template>
+    <script>
+        Vue.component('ht-dropdown', {
+            template: '#ht-dropdown',
+            props:['status','options'],
+            data() {
+                return {
+                    isShow:false,
+                    isError:false,
+                    errorMsg:'' 
+                }
+            },
+            computed:{
+                statusText(){
+                    return this.options[this.status].statusText
+                }
+            }
+        })
+        let vm = new Vue({
+            el: '#app',
+            data: {
+                initStatus: 'A',
+                htOptions: {
+                    'A': {
+                        statusText: 'statusTextA',
+                        statusTitle: 'statusTitleA',
+                        optionText: 'optTextA',
+                        optionTitle: 'optTitleA',
+                        isShow: true
+                    },
+                    'B': {
+                        statusText: 'statusTextB',
+                        statusTitle: 'statusTitleB',
+                        optionText: 'optTextB',
+                        optionTitle: 'optTitleB',
+                        isShow: true
+                    },
+                    'C': {
+                        statusText: 'statusTextC',
+                        statusTitle: 'statusTitleC',
+                        optionText: 'optTextC',
+                        optionTitle: 'optTitleC',
+                        isShow: true
+                    },
+                    'D': {
+                        statusText: 'statusTextD',
+                        statusTitle: 'statusTitleD',
+                        optionText: 'optTextD',
+                        optionTitle: 'optTitleD',
+                        isShow: true
+                    }
+                }
+            },
+            methods: {
+                updateHtDropdownStatus(statusId, callback) {
+                    this.initStatus = statusId;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
