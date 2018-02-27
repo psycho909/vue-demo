@@ -59,14 +59,28 @@
 
 <body>
     <div id="app">
-        <ht-dropdown v-bind:status="initStatus" v-bind:options="htOptions"></ht-dropdown>
+        <ht-dropdown 
+            v-bind:status="initStatus" 
+            v-bind:options="htOptions"
+            v-on:updatehtdropdownstatus="updateHtDropdownStatus"
+        ></ht-dropdown>
     </div>
     <template id="ht-dropdown">
         <div class="ht-dropdown">
-            <div class="ht-dropdown-status">
-                <p class="ht-dropdown-status-text">
+            <div class="ht-dropdown-status" @click="toggle">
+                <p class="ht-dropdown-status-text" v-bind:title="statusTitle">
                     {{statusText}}
                 </p>
+                <div v-show="isShow" class="ht-dropdown-options">
+                    <div class="ht-dropdown-option" 
+                        v-for="(option,statusId) in options"
+                        v-show="option.isShow"
+                        @click.stop="setStatus(option,statusId)"
+                        :title="option.statusTitle"
+                    >
+                        <p>{{option.optionTitle}}</p>
+                    </div>
+                </div>
             </div>
             <p class="error-msg">{{errorMsg}}</p>
         </div>
@@ -83,8 +97,26 @@
                 }
             },
             computed:{
+                statusTitle(){
+                    return this.options[this.status].statusTitle
+                },
                 statusText(){
                     return this.options[this.status].statusText
+                }
+            },
+            methods:{
+                toggle(){
+                    this.isShow=!this.isShow
+                },
+                close:function(){
+                    this.isShow=false;
+                },
+                setStatus:function(option,statusId){
+                    this.close();
+                    this.$emit('updatehtdropdownstatus',statusId,this.setErrorMsg)
+                },
+                setErrorMsg(errorMsg){
+                    this.errorMsg=errorMsg
                 }
             }
         })

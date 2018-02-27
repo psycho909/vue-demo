@@ -20,15 +20,44 @@
 <body>
     <div id="app">
         <div class="box" v-bind:class=['isRed']>{{message}}</div>
+        <input type="text" v-model="message">
+        <parent-props v-bind:msg="message"></parent-props>
         <ol>
             <todo-item v-for="item in groceryList" v-bind:todos="item"></todo-item>
             <todo-list v-for="item in groceryList" v-bind:todos="item"></todo-list>
         </ol>
+        <div>{{count}}</div>
+        <child-emit @childcounts="childCounts"></child-emit>
     </div>
     <template id="todo-item">
         <li>{{todos.text}}</li>
     </template>
+    <template id="parent-props">
+        <div>{{msg}}</div>
+    </template>
+    <template id="child-emit">
+        <button @click="addCounts">{{counts}}</button>
+    </template>
     <script>
+        Vue.component('child-emit',{
+            props:['count'],
+            template:'#child-emit',
+            data() {
+                return {
+                    counts:0
+                }
+            },
+            methods:{
+                addCounts(){
+                    this.counts++;
+                    this.$emit('childcounts',this.counts)
+                }
+            }
+        })
+        Vue.component('parent-props',{
+            props:['msg'],
+            template:'#parent-props'
+        })
         Vue.component('todo-item',{
             props:['todos'],
             template:'#todo-item'
@@ -48,7 +77,14 @@
                     { id: 0, text: 'Vegetables' },
                     { id: 1, text: 'Cheese' },
                     { id: 2, text: 'Whatever else humans are supposed to eat' }
-                ]
+                ],
+                count:0
+            },
+            methods:{
+                childCounts:function(count){
+                    this.count=count;
+                    // console.log(count)
+                }
             }
         })
     </script>
