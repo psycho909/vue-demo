@@ -36,7 +36,11 @@
         <div>{{msg}}</div>
     </template>
     <template id="child-emit">
-        <button @click="addCounts">{{counts}}</button>
+        <div>
+            <div>{{name}}</div>
+            <button @click="addCounts">{{counts}}</button>
+        </div>
+        
     </template>
     <script>
         Vue.component('child-emit',{
@@ -44,7 +48,8 @@
             template:'#child-emit',
             data() {
                 return {
-                    counts:0
+                    counts:0,
+                    name:'Chen'
                 }
             },
             methods:{

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue.extend</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: gold;
+        }
+        .isRed{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="todoItem"></div>
+    </div>
+    <template id="todo-item">
+        <div>{{message}}</div>
+    </template>
+    <script>
+        var todoItem= Vue.extend({
+            props:['todos'],
+            template:'#todo-item',
+            data() {
+                return {
+                    message:'Hello'
+                }
+            }
+        })
+        new todoItem().$mount('#todoItem');
+        var app=new Vue({
+            el:'#app',
+            data:{
+                message:'Hello'
+            }
+        })
+    </script>
+</body>
+</html>

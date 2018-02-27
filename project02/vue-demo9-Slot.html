@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SLOT</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <signle-slot>
+            <div>This is not slot</div>
+        </signle-slot>
+        <name-slot>
+            <div slot="header">HHHeader</div>
+            <div slot="footer">FFFooter</div>
+        </name-slot>
+        <scope-slot v-bind:items="items">
+            <template scope="props" slot="item">
+                <span>{{props.text}}</span>
+            </template>
+        </scope-slot>
+    </div>
+    <template id="signle-slot">
+        <div class="box">
+            <slot>Hello from child</slot>
+        </div>
+    </template>
+    <template id="name-slot">
+        <div class="box">
+            <slot name="header">Header</slot>
+            <slot>This is content</slot>
+            <slot name="footer">Footer</slot>
+        </div>
+    </template>
+    <template id="scope-slot">
+        <div class="box">
+            <h1>Scope Slot</h1>
+            <p>內容</p>
+            <slot name="item" v-for="item in items" v-bind:text="item.text"></slot>
+        </div>
+    </template>
+    <script>
+        Vue.component('signle-slot',{
+            template:'#signle-slot'
+        })
+        Vue.component('name-slot',{
+            template:'#name-slot'
+        })
+        Vue.component('scope-slot',{
+            props:['items'],
+            template:'#scope-slot'
+        })
+        var app=new Vue({
+            el:'#app',
+            data:{
+                message:'12312',
+                items: [
+                    { id: 1, text: '項目 1' },
+                    { id: 2, text: '項目 2' },
+                    { id: 3, text: '項目 3' }
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
