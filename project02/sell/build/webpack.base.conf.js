@@ -34,6 +34,8 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      // 路徑配置
+      components:resolve('./src/components')
     }
   },
   // 對某種類型的文件，通過某個loader出做處理
