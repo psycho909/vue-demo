@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>component练习</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/2.2.1/vue-router.min.js"></script>
+
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="app">
+	<div>{{msg}}</div>
+	<ul>
+		<li v-for="(member,key,index) in memberObject" :key="index">
+			<span>{{index}}</span> <span>{{key}}</span> <span>{{member}}</span>
+		</li>
+	</ul>
+	<div>{{myname}}</div>
+	<my-component name="Chen Ching" @setname="getname"></my-component>
+	<child name="Hello Scope Slot">
+		<div slot="main">Hello Slot name</div>
+		<div>Hello Temp Slot</div>
+		<b slot="item" slot-scope="props">{{props.id}}</b>
+	</child>
+</div>
+<template id="my-component">
+	<div>
+		<button v-on:click="setName">{{name}}</button>
+	</div>
+</template>
+<template id="child">
+	<div>
+		<slot>temp slot</slot>
+		<slot name="main">Slot main</slot>
+		<slot name="item" :id="name"></slot>
+		<div>{{msg}}</div>
+		<i>{{name}}</i>
+	</div>
+</template>
+</body>
+<script>
+Vue.component('child',{
+	template:'#child',
+	props:['name'],
+	data() {
+		return {
+			msg:"Hello SLOT"
+		}
+	}
+})
+Vue.component('my-component',{
+	template:'#my-component',
+	props:{
+		name:{
+			type:String,
+			default:321,
+			required:true
+		}
+	},
+	data() {
+		return {
+			
+		}
+	},
+	methods:{
+		setName:function(){
+			console.log(123)
+			this.$emit('setname',this.name)
+		}
+	}
+})
+var vm = new Vue({
+	el:'#app',
+	data: {
+		msg: 'Hello Vus.js',
+		memberObject: {
+            name: 'Eva',
+            gender: 'female',
+            age: '22'
+        },
+		myname:'213'
+	},
+	methods:{
+		getname:function(name){
+			this.myname=name;
+			console.log(name)
+		}
+	}
+});
+
+</script>
+</html>
