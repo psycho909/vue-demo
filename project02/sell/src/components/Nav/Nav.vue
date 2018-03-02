@@ -30,6 +30,7 @@
         height: 40px;
         line-height: 40px;
         border-bottom:1px solid #e4e4e4;
+        box-sizing: border-box;
     }
     .nav .nav-item{
         flex:1;
