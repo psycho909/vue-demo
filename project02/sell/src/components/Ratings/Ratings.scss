@@ -1,0 +1,192 @@
+.ratings{
+    position: absolute;
+    top: 191px;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    .ratings-wrapper{
+        .overview{
+            padding: 20px 0 18px 0;
+            display: flex;
+            .overview-left{
+                flex: 1;
+                padding-left: 26px;
+                .comment-score{
+                    float: left;
+                    width: 48px;
+                    text-align: center;
+                    margin-right: 26px;
+                    .score{
+                        font-size: 23px;
+                        font-weight: 800;
+                        color:#ffb000;
+                        margin-bottom: 9px;
+                    }
+                    .text{
+                        font-size: 11px;
+                        color:#666;
+                    }
+                }
+                .other-score{
+                    float: left;
+                    margin-top: 3px;
+                    .item{
+                        height: 11px;
+                        .text{
+                            font-size: 11px;
+                            color:#666;
+                            margin-right: 11px;
+                            float: left;
+                        }
+                        .star{
+                            float: left;
+                            margin-right: 11px;
+                        }
+                        .score{
+                            font-size: 11px;
+                            color:#ffb000;
+                            float: left;
+                        }
+                    }
+                    .quality-score{
+                        margin-bottom: 14px;
+                    }
+                }
+            }
+            .overview-right{
+                flex: 0 0 100px;
+                text-align: center;
+                border-left:1px solid #9d9d9d;
+                .delivery-score{
+                    .score{
+                        font-size: 19px;
+                        font-weight: 500;
+                        color:#999;
+                        margin-bottom: 10px;
+                        margin-top: 3px;
+                    }
+                    .text{
+                        font-size: 11px;
+                        color: #999999;
+                    }
+                }
+            }
+        }
+        .content{
+            padding: 16px;
+            .rating-select{
+                width: 100%;
+                box-sizing: border-box;
+                font-size: 0;
+                border: 1px solid #ffb000;
+                margin-bottom: 11px;
+                border-radius: 3px;
+                .item{
+                    width: 33.3%;
+                    display: inline-block;
+                    height: 33px;
+                    line-height: 33px;
+                    font-size: 14px;
+                    text-align: center;
+                    border-right: 1px solid #ffb000;
+                    box-sizing: border-box;
+                    color: #ffb000;
+                    &:last-child{
+                        border-right: 0;
+                        img{
+                            height: 14px;
+                            vertical-align: middle;
+                        }
+                    }
+                    &.active{
+                        background: #ffb000;
+                        color: #000;
+                    }
+                }
+            }
+            .labels-view{
+                // margin-bottom: 14px;
+                .item{
+                    font-size: 12px;
+                    height: 27px;
+                    line-height: 27px;
+                    border-radius: 3px;
+                    padding: 0 10px;
+                    display: inline-block;
+                    color: #999;
+                    background-color: #f4f4f4;
+                    margin-right: 6px;
+                    margin-bottom: 6px;
+                    &.heighlight{
+                        color: #656565;
+                    }
+                }
+            }
+            .rating-list{
+                .comment-item{
+                    padding: 16px 16px 16px 0;
+                    border-bottom: 1px solid #f4f4f4;
+                    width: 100%;
+                    box-sizing: border-box;
+                    display: flex;
+                    .comment-header{
+                        flex: 0 0 35px;
+                        margin-right: 11px;
+                        img{
+                            width: 35px;
+                            height: 35px;
+                            border-radius: 50%;
+                        }
+                    }
+                    .comment-main{
+                        flex: 1;
+                        .user{
+                            width: 50%;
+                            float: left;
+                            font-size: 11px;
+                            color: #333333; 
+                        }
+                        .time{
+                            width: 50%;
+                            float: right;
+                            font-size: 9px;
+                            color: #666;
+                            text-align: right;
+                        }
+                        .star-wrapper{
+                            float: left;
+                            margin-top: 12px;
+                            margin-bottom: 15px;
+                            .text{
+                                font-size: 11px;
+                                color: #999999;
+                                display: inline-block;
+                                float: left;
+                            }
+                            .star{
+                                float: left;
+                                margin-left: 7px;
+                            }
+                        }
+                        .c_content{
+                            font-size: 13px;
+                            line-height: 19px;
+                            float: left;
+                            width: 100%;
+                            i{
+                                color:#576b95;
+                            }
+                        }
+                        .img-wrapper{
+                            margin-top: 9px;
+                            float: left;
+                            img{
+                                width: 175px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

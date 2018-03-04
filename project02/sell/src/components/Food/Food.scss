@@ -1,0 +1,178 @@
+.food{
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 51px;
+    background-color: #fff;
+    width: 100%;
+    z-index: 90;
+    .food-wrapper{
+        .food-content{
+            position: relative;
+            .img-wrapper{
+                position: relative;
+                width: 100%;
+                height: 0;
+                // 高度如何撐開
+                // 在定位中，使用padding-top或padding-bottom設置為100%，其實盒子高度會根據盒子高度進行計算
+                padding-top:100%;
+                .food-img{
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                }
+                .close-bt{
+                    width: 30px;
+                    height: 30px;
+                    position: absolute;
+                    left: 10px;
+                    top: 10px;
+                    text-align: center;
+                    font-size: 30px;
+                    color:#fff;
+                    background: #7f7f7f;
+                    border-radius: 50%;
+                }
+                .share-bt,.more-bt{
+                    width: 30px;
+                    height: 30px;
+                    position: absolute;
+                    top: 10px;
+                }
+                .share-bt{
+                    right: 50px;
+                }
+                .more-bt{
+                    right: 10px;
+                }
+            }
+            .content-wrapper{
+                padding: 0 0 16px 16px;
+                .name{
+                    font-size: 15px;
+                    color:#333;
+                    line-height: 30px;
+                    font-weight: bold;
+                }
+                .saled{
+                    font-size: 11px;
+                    color:#9d9d9d;
+                    margin-bottom: 6px;
+                }
+                .product{
+                    height: 15px;
+                    margin-bottom: 16px;
+                }
+                .price{
+                    font-size: 0;
+                    .text{
+                        font-size: 17px;
+                        color:#fb4e44;
+                    }
+                    .unit{
+                        font-size: 11px;
+                        color:#9d9d9d;
+                    }
+                }
+            }
+            .cartcontrol-wrapper{
+                position: absolute;
+                right: 12px;
+                bottom: 10px;
+                padding: 2px;
+            }
+            .buy{
+                width: 64px;
+                height: 30px;
+                font-size: 12px;
+                line-height: 30px;
+                text-align: center;
+                background: #ffd161;
+                border-radius: 30px;
+                position: absolute;
+                right: 12px;
+                bottom: 10px;
+            }
+        }
+        .rating-wrapper{
+            padding-left: 16px;
+            .rating-title{
+                padding: 16px 16px 16px 0;
+                .like-ratio{
+                    float: left;
+                    font-size: 0;
+                    .title{
+                        font-size: 13px;
+                    }
+                    .ratio{
+                        font-size: 11px;
+                        i{
+                            color:#fb4e44;
+                            font-size: 11px;
+                        }
+                    }
+                }
+                .snd-title{
+                    float: right;
+                    font-size: 0;
+                    .text,.icon{
+                        font-size: 13px;
+                        color:#9d9d9d;
+                        display: inline-block;
+                    }
+                    .icon{
+                        margin-left: 12px;
+                    }
+                }
+            }
+            .rating-item{
+                padding: 15px 14px 17px 0;
+                border-bottom: 1px solid #f4f4f4;
+                width: 100%;
+                box-sizing: border-box;
+                display: flex;
+                .comment-header{
+                    flex:0 0 41px;
+                    margin-right: 10px;
+                    img{
+                        width: 41px;
+                        height: 41px;
+                        border-radius: 50%;
+                    }
+                }
+                .comment-main{
+                    flex:1;
+                    margin-top: 6px;
+                    .user{
+                        width: 50%;
+                        float: left;
+                        font-size: 12px;
+                        color:#333;
+                    }
+                    .time{
+                        width: 50%;
+                        float: right;
+                        text-align: right;
+                        font-size: 10px;
+                        color:#666;
+                    }
+                    .content{
+                        margin-top: 17px;
+                        font-size: 13px;
+                        line-height: 19px;
+                    }
+                }
+            }
+        }
+    }
+}
+.detail-enter-active,
+.detail-leave-active{
+    transition:  all 1s;
+}
+.detail-enter,
+.detail-leave-to{
+    transform: translateX(100%);
+}

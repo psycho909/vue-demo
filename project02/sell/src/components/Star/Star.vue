@@ -26,15 +26,15 @@
         computed:{
             itemClasses(){
                 let result=[];
-                console.log(this.score)
+                // console.log(this.score)
                 //對分數進行處理，向下取0.5倍數
                 let score=Math.floor(this.score*2)/2
                 // 小數，控制半星
                 let hasDecimal=score % 1 !== 0;
-                console.log('hasDecimal: '+hasDecimal)
+                // console.log('hasDecimal: '+hasDecimal)
                 // 整數，控制全星
                 let integer=Math.floor(score);
-                console.log('integer: '+integer)
+                // console.log('integer: '+integer)
                 // 全星
                 for(let i=0;i<integer;i++){
                     result.push(CLS_ON)
@@ -47,7 +47,7 @@
                 while(result.length < LENGTH){
                     result.push(CLS_OFF)
                 }
-                console.log(result)
+                // console.log(result)
                 return result;
             }
         }

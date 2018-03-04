@@ -4,7 +4,7 @@
     <Myheader v-bind:poiInfo="poiInfo"></Myheader>
 
     <!-- 導航 -->
-    <Mynav></Mynav>
+    <Mynav :commentNum="commentNum"></Mynav>
 
     <!-- 主體內容 -->
     <router-view></router-view>
@@ -26,7 +26,8 @@ export default {
   data() {
     return {
       // header組件需要的信息
-      poiInfo: {}
+      poiInfo: {},
+      commentNum:0
     }
   },
   created() { //發起異步請求，獲取數據
@@ -34,11 +35,19 @@ export default {
     // 透過axios發起get請求
     this.$axios.get('/api/goods')
       .then(function(response){ // 獲取到數據
-        //console.log(res)
         var dataSource=response.data;
         if(dataSource.code == 0){
           that.poiInfo=dataSource.data.poi_info;
-          // console.log(that.poiInfo)
+        }
+      })
+      .catch(function(error){ // 出錯處理
+        console.log(error)
+      })
+    this.$axios.get('/api/ratings')
+      .then(function(response){ // 獲取到數據
+        var dataSource=response.data;
+        if(dataSource.code == 0){
+          that.commentNum=dataSource.data.comment_num;
         }
       })
       .catch(function(error){ // 出錯處理
