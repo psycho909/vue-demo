@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+    <style>
+        .box {
+            display: flex;
+            width: calc(34px * 3);
+            height: calc(34px * 3);
+            box-sizing: border-box;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .box.active.O:before{
+            content:'';
+            width: 60%;
+            height: 60%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border:2px solid red;
+            border-radius: 50%;
+        }
+        .box.active.X:before{
+            content:'';
+            width: 100%;
+            height: 2px;
+            background-color: red;
+            position: absolute;
+            top: 75px;
+            left: 0;
+            transform: rotate(45deg);
+        }
+        .box.active.X:after{
+            content:'';
+            width: 100%;
+            height: 2px;
+            background-color: red;
+            position: absolute;
+            top: 75px;
+            left: 0;
+            transform: rotate(-45deg);
+        }
+        .box div {
+            border: 1px solid #999;
+            box-sizing: border-box;
+            width: 34px;
+            height: 34px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            text-align: center;
+            line-height: 34px;
+        }
+        [v-cloak] {
+            display: none;
+        }
+        .ooxx-wrapper{
+            display: flex;
+        }
+        .ooxx-wrapper .info{
+            margin-left: 20px;;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="ooxx-wrapper">
+            <div class="box" :class='[{active:stop},isType]'>
+                <div v-for="(item,index) in currentList"  v-on:click="addList(index)" :key="index" :dtat-id="index" v-cloak>{{item}}</div>
+            </div>
+            <di class="info">
+                <div class="notice">{{statusView}}</div>
+                <ul>
+                    <li><a href="javascript:;">Game Start</a></li>
+                    <li v-for="(item,id) in list" :key="id">
+                        <a href="javascript:;" v-on:click="jumpTo(id)">Move #{{id+1}}</span>
+                    </li>
+                </ul>
+            </di>
+        </div>
+    </div>
+
+</body>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            list: [{squares:[null, null, null, null, null, null, null, null, null]}],
+            toggleType:false,
+            stop:false,
+            isType:'',
+            stepNumber:0,
+            lines: [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6],
+            ]
+        },
+        computed:{
+            statusView:function(){
+                if(this.listShow){
+                    this.stop=true
+                    this.isType=this.listShow
+                    return 'Winner :'+this.listShow
+                }else{
+                    return 'Next player:'+(this.toggleType?'O':'X')
+                }
+            },
+            listShow:function(){
+                var that=this;
+                for(var i=0;i<that.lines.length;i++){
+                    var [a,b,c]=that.lines[i];
+                    if( that.list[this.stepNumber].squares[a] && that.list[this.stepNumber].squares[a] === that.list[this.stepNumber].squares[b] && that.list[this.stepNumber].squares[a] === that.list[this.stepNumber].squares[c] ){
+                        return that.list[this.stepNumber].squares[a]
+                    }
+                }
+            },
+            currentList:function(){
+                var list=this.list[this.stepNumber].squares
+                console.log(this.stepNumber)
+                console.log(this.list[0].squares)
+                return list
+            }
+        },
+        methods: {
+            addList: function (index) {
+                var listBox=this.list.slice(0,this.stepNumber+1)
+                var current=listBox[listBox.length-1]
+                var squares=current.squares
+                if(!this.stop){
+                    if(squares[index]){
+                        return false;
+                    }else{
+                        squares.splice(index,1,this.toggleType?'O':'X')
+                        this.list.push({
+                            squares:squares
+                        })
+                        this.stepNumber=this.list.length-1
+                        this.toggleType=!this.toggleType;
+                    }
+                    // console.log(index+' : '+this.list[index])
+                }
+            },
+            jumpTo:function(index){
+                this.stepNumber=index;
+            }
+        }
+    })
+</script>
+
+</html>
