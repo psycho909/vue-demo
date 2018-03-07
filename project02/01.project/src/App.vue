@@ -5,22 +5,36 @@
         <li><router-link to="/A">A</router-link></li>
         <li><router-link to="/B">B</router-link></li>
     </ul>
-    <div class="box">
-      <div v-for="(item,index) in list" :key="index" v-on:click="addList(index)">{{item}}</div>
-      <span>{{count}}</span>
-      <button @click="addCount">add</button>
-    </div>
     <router-view/>
+    <span>childName / {{childName}}</span>
+    <input type="text" v-model="name">
+    <input type="text" v-model="age">
+    <hr>
+    <Child 
+      :my-name="name" 
+      :my-age="age" 
+      @update:my-name="val=>name=val"
+      @update:my-age="val=>age=val"
+      @addCount="getName"
+    ></Child>
   </div>
 </template>
 
 <script>
+import Child from '@/components/Child'
+
 export default {
   name: 'App',
+  components:{
+    Child
+  },
   data() {
     return {
       list:['','','','','','','','',''],
-      count:0
+      count:0,
+      name:'Chings',
+      age:1001,
+      childName:''
     }
   },
   methods:{
@@ -31,6 +45,9 @@ export default {
       //this.list[index]='x'
       this.list[index]='X'
       console.log(this.list)
+    },
+    getName:function(val){
+      console.log('father : '+val)
     }
   }
 }
