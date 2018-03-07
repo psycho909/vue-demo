@@ -264,15 +264,15 @@ Vue過度效果
 .detail-leave-to        過度結束的狀態
 .detail-leave-active    過度的時間、延遲、曲線函數
 */
-.detail-enter-active,
-.detail-leave-active {
-    transition: 2s all;
+.bulletin-detail-enter-active,
+.bulletin-detail-leave-active {
+    transition: .8s all;
 }
-.detail-enter,
-.detail-leave-to{
+.bulletin-detail-enter,
+.bulletin-detail-leave-to{
     opacity: 0;
 }
-.detail-enter-to,
-.detail-leave {
+.bulletin-detail-enter-to,
+.bulletin-detail-leave {
     opacity: 1;
 }

@@ -49,7 +49,7 @@
         </div>
 
         <!-- 公告詳情頁 -->
-        <transition name="detail">
+        <transition name="bulletin-detail">
             <div class="bulletin-detail" v-if="isShow">
                 <div class="detail-wrapper">
                     <div class="main-wrapper" :style="detail_bg">
