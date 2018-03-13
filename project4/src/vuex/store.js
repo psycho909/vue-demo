@@ -4,42 +4,44 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 var state={
-    count:3
-}
-var mutations={
-    add(state,n){
-        state.count+=n;
-    },
-    reduce(state){
-        state.count--;
-    }
+    count:1
 }
 
 var getters={
-    count:function(state){
-        return state.count+=5
+    count:(state)=>{
+        return state.count
+    }
+}
+
+var mutations={
+    add(state,num){
+        state.count+=num;
+    },
+    reduce(state,num){
+        state.count-=num;
+    },
+    countreset(state){
+        state.count=0;
     }
 }
 
 var actions={
-    addAction(context){
-        setTimeout(()=>{
-            context.commit('add',10)
-        },1000)
-        console.log('比reduce')
+    addAction({commit},num){
+        console.log(num)
+        commit('add',num)
     },
-    reduceAction({commit}){
-        commit('reduce')
+    reduceAction({commit},num){
+        console.log(num)
+        commit('reduce',num)
+    },
+    countRestAction({commit}){
+        commit('countreset')
     }
 }
 
-var moduleA={
+export default new Vuex.Store({
     state,
     mutations,
     getters,
     actions
-}
-
-export default new Vuex.Store({
-    modules:{a:moduleA}
 })
