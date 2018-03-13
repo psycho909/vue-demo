@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-model</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    <div id="app">
+        <span>{{count}}</span>
+    </div>
+    <button id="add1" @click="addcount">{{count1}}</button>
+    <script>
+        var app=new Vue({
+            el:'#app',
+            data:{
+                count:0
+            },
+        })
+        var add1=new Vue({
+            el:'#add1',
+            data:{
+                count1:0
+            },
+            methods:{
+                addcount(){
+                    this.count1+=1;
+                    
+                }
+            },
+            updated(){
+                console.log('updated')
+                app.count=this.count1;
+            }
+        })
+    </script>
+</body>
+</html>

@@ -52,8 +52,25 @@
             <input type="text" v-model.lazy="msg">
             <span>{{msg}}</span>
         </div>
+        <select name="" id="">
+            <my-option v-for="option in options" :label="option"></my-option>
+        </select>
+        <br>
+        <input type="text" v-model="form.name">
+        <input type="text" v-model="form.age">
+        <button @click="showlabel">showlabe</button>
+        <br>
+        <span>{{form.name}}</span> - <span>{{form.age}}</span>
+        <br>
+        <h2>{{form.label}}</h2>
     </div>
     <script>
+        Vue.component('my-option',{
+            props:['label'],
+            template:`
+                <option>{{label}}</option>
+            `
+        })
         var app=new Vue({
             el:'#app',
             data:{
@@ -63,7 +80,17 @@
                 picked:'',
                 selected:'',
                 one:'ONE',
-                msg:'Hello'
+                msg:'Hello',
+                options:['A','B'],
+                form:{
+                    name:'',
+                    age:''
+                }
+            },
+            methods:{
+                showlabel(){
+                    Vue.set(this.form,'label',this.form.name+' - '+this.form.age)
+                }
             }
         })
     </script>
