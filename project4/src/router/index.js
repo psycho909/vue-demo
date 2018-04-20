@@ -26,9 +26,8 @@ export default new Router({
       path:'/Hi',
       component:Hi,
       children:[
-        {path:'/',name:'Hi',component:Hi},
         {path:'Hi1',name:'hi1',component:Hi1},
-        {path:'Hi2',name:'hi2',component:Hi2},
+        {path:'Hi2/:id',name:'hi2',component:Hi2,props:true},
       ]
     },{
       path:'/Left',

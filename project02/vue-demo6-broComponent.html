@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{parentComponentName}}</h2>
+        <child1 :first-child-component-name="firstChildComponentName"></child1>
+        <child2 :change-first-child-component-name="changeFirstChildComponentName"></child2>
+    </div>
+    <template id="child1">
+        <div>
+            <h3>Name - {{firstChildComponentName}}</h3>
+        </div>
+    </template>
+    <template id="child2">
+        <div>
+            <button @click="changeFirstChildComponentName">Click Me</button>
+        </div>
+    </template>
+    <script>
+        Vue.component('child1',{
+            props:['firstChildComponentName'],
+            template:'#child1'
+        })
+        Vue.component('child2',{
+            props:['changeFirstChildComponentName'],
+            template:'#child2'
+        })
+        var app = new Vue({
+            el: '#app',
+            data: {
+                parentComponentName:'Mac',
+                firstChildComponentName:'BigMac',
+            },
+            methods: {
+                changeFirstChildComponentName:function(){
+                    this.firstChildComponentName='Airan'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

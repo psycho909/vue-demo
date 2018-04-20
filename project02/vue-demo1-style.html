@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        .box{
+            width: 100px;
+            height: 100px;
+            border:1px solid #000;
+        }
+        .red{
+            background-color: red;
+        }
+        .blue{
+            background-color: blue;
+        }
+        .green{
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="box" v-bind:class="{red:isRed}">123</div>
+    <div class="box" v-bind:class="[arrBlue]">321</div>
+    <div class="box" v-bind:class="[isRed?arrGreen:'',arrBlue]">333</div>
+    <input type="checkbox" class="check" name="check">
+</div>
+
+</body>
+<script>
+    $(function(){
+        $('.check').on('change',function(){
+            console.log($(this).prop('checked'))
+        })
+    })
+	var app=new Vue({
+		el:'#app',
+		data:{
+            isRed:true,
+            arrBlue:'blue',
+            arrGreen:'green',
+		}
+	})
+</script>
+</html>

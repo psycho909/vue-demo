@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>transition</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.min.js"></script>
+
+	<style>
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: aquamarine;
+            text-align: center;
+            line-height: 100px;
+        }
+        .fade-enter-active,.fade-leave-active{
+            transition: all .3s;
+        }
+        .fade-enter,.fade-leave-to{
+            opacity: 0;
+        }
+        .fade-enter-leave,.fade-leave{
+            opacity: 1;
+        }
+	</style>
+</head>
+<body>
+<div id="app">
+    <button v-on:click="show = !show">toggle</button>
+    <transition name="fade">
+        <div v-if="show" class="box">Hello</div>
+    </transition>
+</div>
+
+</body>
+<script>
+
+	var app=new Vue({
+		el:'#app',
+		data:{
+            show:true
+		},
+		methods:{
+
+		}
+	})
+</script>
+</html>
