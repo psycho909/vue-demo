@@ -12,17 +12,37 @@
 </head>
 <body>
 <div id="app">
-
+    <childbox text="world" :name="name"></childbox>
+    <ul>
+        <li v-for="item in nameArr">{{item}}</li>
+    </ul>
+    <button type="button" v-on:click="addName">click</button>
 </div>
-
+<template id="childbox">
+    <div>
+        <span>{{name}}</span>
+        <span>Hello</span>
+        <span v-bind:class="text">{{text}}</span>
+    </div>
+</template>
 </body>
 <script>
-
+    Vue.component('childbox',{
+        template:'#childbox',
+        props:['text','name']
+    })
 	var app=new Vue({
 		el:'#app',
 		data:{
-
-		}
+            name:'Chen',
+            nameArr:['chen','ching','yang']
+		},
+        methods:{
+            addName:function(){
+                this.nameArr.splice(0,1,'aa')
+                console.log(123)
+            }
+        }
 	})
 </script>
 </html>
